@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Invitación a mi Cumpleaños</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+
+    <audio id="musicaCumple" loop>
+        <source src="./audio/happy-birthday-357371.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="overlay">
+        <div class="envelope-content">
+            <div class="confetti-icon">🎉</div>
+            <h2 class="animate__animated animate__pulse animate__infinite">¡TIENES UNA INVITACIÓN!</h2>
+            <button onclick="iniciarInvitacion()" class="btn-open">ABRIR AHORA</button>
+        </div>
+    </div>
+
+    <div class="main-card">
+        <section class="hero-section">
+            <div class="hero-img"></div>
+            <div class="hero-text">
+                <p class="tagline">¡HOLA, TE ESPERO!</p>
+                <p class="sub-h1">¿Quieres festejar Conmigo?</p>
+                <h1>MATÍAS</h1>
+                <div class="age-badge">6 AÑITOS</div>
+            </div>
+        </section>
+
+        <section class="event-details">
+            <div class="detail-grid">
+                <div class="item"><strong>DÍA</strong><p>25 de Febrero</p></div>
+                <div class="item"><strong>HORA</strong><p>17:00 hs</p></div>
+                <div class="item" style="grid-column: span 2;">
+                    <strong>LUGAR</strong><p>Salón Chuculinos Eventos</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="interactive-hub">
+            <div class="hub-card countdown-card">
+                <h3 id="countdown-title">Falta muy poquito:</h3>
+                <div id="countdown">
+                    <div class="time-unit"><span id="days">00</span><small>Días</small></div>
+                    <div class="time-unit"><span id="hours">00</span><small>Horas</small></div>
+                    <div class="time-unit"><span id="minutes">00</span><small>Min.</small></div>
+                    <div class="time-unit"><span id="seconds">00</span><small>Seg.</small></div>
+                </div>
+            </div>
+
+            <div class="hub-card action-card">
+                <button onclick="abrirModal()" class="btn-rsvp-trigger">
+                    <span class="icon">✅</span> CONFIRMAR ASISTENCIA
+                </button>
+                <a href="https://maps.google.com" target="_blank" class="btn-map">
+                    <span class="icon">📍</span> ¿CÓMO LLEGAR AL SALÓN?
+                </a>
+            </div>
+        </section>
+
+        <section class="salon-promo">
+            <h3>ASÍ ES EL SALÓN:</h3>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="./image/imagen1.png" alt="Salón"></div>
+                    <div class="swiper-slide"><img src="./image/imagen2.jpg" alt="Juegos"></div>
+                    <div class="swiper-slide"><img src="./image/imagen3.webp" alt="Diversión"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="brand-section">
+                <p class="promo-text">¿Querés una invitación como esta?</p>
+                <a href="https://wa.me/5492645468570" class="brand-link">
+                    <span class="developed-text">Desarrollado por</span>
+                    <span class="author-name">Alexander Baez</span>
+                </a>
+            </div>
+            <img src="logo-chuculinos.png" class="mini-logo">
+        </footer>
+    </div>
+
+    <div id="modalAsistencia" class="modal">
+        <div class="modal-content animate__animated animate__fadeInUp">
+            <span class="close-modal" onclick="cerrarModal()">×</span>
+            <div class="form-container">
+                <h2>Confirmar Asistencia</h2>
+                <label for="nombre">Nombre y Apellido:</label>
+                <input type="text" id="nombre" placeholder="Ej: Juan Pérez">
+                <label for="asistencia">¿Asistirá al cumple?</label>
+                <select id="asistencia" onchange="togglePersonas()">
+                    <option value="">Seleccionar...</option>
+                    <option value="Sí">Sí, asistiré 🎉</option>
+                    <option value="No">No podré asistir 🙏</option>
+                </select>
+                <div id="seccion-personas">
+                    <label for="personas">¿Cuántas personas son?</label>
+                    <select id="personas">
+                        <option value="">Seleccionar...</option>
+                        <option value="Seré solo yo">Seré solo yo</option>
+                        <option value="Seremos 2 personas">Seremos 2 personas</option>
+                        <option value="Seremos 3 personas">Seremos 3 personas</option>
+                        <option value="Seremos 4 personas">Seremos 4 personas</option>
+                        <option value="Seremos 5 personas">Seremos 5 personas</option>
+                    </select>
+                </div>
+                <button class="btn-enviar-wa" onclick="enviarAsistencia()">Enviar por WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

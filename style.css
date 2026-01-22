@@ -1,0 +1,81 @@
+:root {
+    --primary: #ff4757;
+    --accent: #2ed573;
+    --map-color: #57606f;
+    --dark: #2f3542;
+    --light: #ffffff;
+    --bg-soft: #f1f2f6;
+}
+
+body { margin: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #dfe4ea; overflow-x: hidden; }
+
+#overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--primary); z-index: 4000;
+    display: flex; justify-content: center; align-items: center; text-align: center;
+    color: white; transition: 0.8s ease-in-out;
+}
+.btn-open { padding: 15px 40px; border-radius: 50px; border: none; font-weight: 800; background: white; color: var(--primary); cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+.main-card { width: 100%; max-width: 450px; margin: 0 auto; background: white; min-height: 100vh; box-shadow: 0 0 50px rgba(0,0,0,0.1); position: relative; }
+
+.hero-img { height: 320px; background: url('./image/wp6964711.webp') center/cover; clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%); }
+.hero-text { text-align: center; padding: 10px 20px; }
+.tagline { font-weight: 800; color: var(--primary); letter-spacing: 1.5px; margin-bottom: 5px; }
+h1 { font-size: 3.5rem; margin: 0; color: var(--dark); font-weight: 900; }
+.sub-h1 { margin: 0; font-size: 1.2rem; color: #747d8c; }
+.age-badge { display: inline-block; background: var(--primary); color: white; padding: 6px 25px; border-radius: 50px; font-weight: 900; margin-top: 10px; font-size: 1.1rem; }
+
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px; }
+.item { background: var(--bg-soft); padding: 15px; border-radius: 20px; text-align: center; border: 1px solid #e1e2e6; }
+.item strong { color: var(--primary); font-size: 0.75rem; letter-spacing: 1px; }
+.item p { margin: 5px 0 0; font-weight: 800; color: var(--dark); font-size: 1.1rem; }
+
+.interactive-hub { padding: 10px 20px; }
+.hub-card { 
+    background: white; border-radius: 25px; padding: 20px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #f1f2f6;
+    margin-bottom: 20px; text-align: center;
+}
+
+.countdown-card { background: var(--dark); color: white; }
+.countdown-card h3 { margin: 0 0 15px 0; font-size: 0.9rem; letter-spacing: 1px; color: #a4b0be; }
+
+#countdown { display: flex; justify-content: center; gap: 10px; }
+.time-unit span { display: block; font-size: 2rem; font-weight: 900; color: var(--light); line-height: 1; }
+.time-unit small { font-size: 0.6rem; color: #a4b0be; text-transform: uppercase; }
+
+.action-card { display: flex; flex-direction: column; gap: 12px; }
+
+.btn-rsvp-trigger { 
+    width: 100%; padding: 18px; border-radius: 20px; border: none; 
+    background: var(--accent); color: white; font-weight: 800; font-size: 1.1rem;
+    cursor: pointer; box-shadow: 0 8px 20px rgba(46, 213, 115, 0.3);
+    transition: 0.3s ease;
+}
+
+.btn-map { 
+    display: block; padding: 16px; text-align: center; background: white;
+    border: 2px solid #dfe4ea; border-radius: 20px; text-decoration: none; 
+    color: var(--dark); font-weight: 800; font-size: 0.9rem; transition: 0.3s;
+}
+
+.salon-promo h3 { text-align: center; font-size: 1rem; color: #747d8c; }
+.swiper { width: 90%; height: 230px; border-radius: 20px; margin: 15px auto; }
+.swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+.footer { padding: 40px 20px; text-align: center; background: #f8f9fa; border-top: 1px solid #eee; }
+.brand-link { text-decoration: none; color: var(--dark); font-weight: bold; }
+.author-name { display: block; font-size: 1.3rem; color: var(--primary); font-weight: 900; }
+.mini-logo { width: 60px; opacity: 0.4; margin-top: 15px; }
+
+.modal { display: none; position: fixed; z-index: 5000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); }
+.modal-content { background: white; margin: 15% auto; padding: 25px; border-radius: 30px; width: 85%; max-width: 400px; position: relative; }
+.close-modal { position: absolute; right: 20px; top: 15px; font-size: 30px; font-weight: bold; color: #ccc; cursor: pointer; }
+input, select { width: 100%; padding: 14px; margin-top: 8px; border-radius: 15px; border: 1px solid #dfe4ea; box-sizing: border-box; font-size: 1rem; }
+.btn-enviar-wa { width: 100%; background: var(--accent); color: white; border: none; padding: 18px; border-radius: 15px; margin-top: 20px; font-weight: 800; cursor: pointer; }
+
+@media (max-width: 400px) {
+    h1 { font-size: 2.8rem; }
+    .time-unit span { font-size: 1.5rem; }
+}

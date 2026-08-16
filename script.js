@@ -3,7 +3,7 @@
 // IMPORTANTE: Mes en INGLÉS y hora formato 24hs (00 a 23)
 // Ejemplo: Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec
 // ==========================================
-const FECHA_EVENTO = "Jan 25, 2026 17:00:00"; 
+const FECHA_EVENTO = "Aug 25, 2026 18:30:00"; 
 
 // Configuración de Swiper
 const swiper = new Swiper(".mySwiper", {
@@ -107,9 +107,9 @@ function enviarAsistencia() {
     }
     let mensaje = `👋 ¡Hola! Soy *${nombre}*.\n\n`;
     if (asistencia === "Sí") {
-        mensaje += `✅ Confirmo mi asistencia al cumple de Matías.\n👥 ${personas}.\n\n¡Nos vemos! 🎉`;
+        mensaje += `✅ Confirmo mi asistencia al cumple de Maximo.\n👥 ${personas}.\n\n¡Nos vemos! 🎉`;
     } else {
         mensaje += `❌ No podré asistir al cumple.\n🙏 ¡Que lo pasen lindo!`;
     }
-    window.open(`https://wa.me/5492645468570?text=${encodeURIComponent(mensaje)}`, '_blank');
+    window.open(`https://wa.me/5492644629511?text=${encodeURIComponent(mensaje)}`, '_blank');
 }

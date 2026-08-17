@@ -1,59 +1,230 @@
-// =========================================================
-// CONFIGURACIÓN
-// =========================================================
+/* =====================================================
+   CONFIGURACIÓN
+   ===================================================== */
 
-const FECHA_EVENTO =
-    "Aug 25, 2026 18:30:00";
+/*
+ * =====================================================
+ * 👇 DATOS QUE TENÉS QUE MODIFICAR
+ * =====================================================
+ */
 
+const FECHA_EVENTO = "Aug 25, 2026 18:30:00";
 
-const NUMERO_WHATSAPP =
-    "5492644629511";
-
-
-const NOMBRE_CUMPLEANERO =
-    "Maximo";
-
-
-const EDAD =
-    "5";
+const NUMERO_WHATSAPP = "5492644629511";
 
 
-// =========================================================
-// AUDIO
-// =========================================================
+/*
+ * =====================================================
+ * CONFIGURACIÓN DE LA EXPLOSIÓN
+ * =====================================================
+ */
+
+const EXPLOSION_CONFIG = {
+
+    /*
+     * Cantidad de partículas de la explosión.
+     */
+
+    particulas: 180,
+
+
+    /*
+     * Distancia mínima y máxima.
+     */
+
+    distanciaMin: 90,
+
+    distanciaMax: 520,
+
+
+    /*
+     * Tamaño de las partículas.
+     */
+
+    tamanoMin: 3,
+
+    tamanoMax: 10,
+
+
+    /*
+     * Duración de la explosión.
+     */
+
+    duracionMin: 650,
+
+    duracionMax: 1150,
+
+
+    /*
+     * Cantidad de humo.
+     */
+
+    humo: 28
+
+};
+
+
+/*
+ * =====================================================
+ * CONFIGURACIÓN DEL CONFETI
+ * =====================================================
+ *
+ * IMPORTANTE:
+ *
+ * Esta configuración controla exclusivamente
+ * el CONFETI canvas-confetti.
+ *
+ * La explosión Monster Truck tiene su propia
+ * configuración arriba.
+ */
+
+const CONFETI_CONFIG = {
+
+    /*
+     * =================================================
+     * DURACIÓN DE LA LLUVIA
+     * =================================================
+     *
+     * Antes:
+     * 7000 ms
+     *
+     * Ahora:
+     * 2200 ms
+     *
+     * El confeti deja de generarse rápidamente.
+     */
+
+    duracionLluvia: 2200,
+
+
+    /*
+     * =================================================
+     * INTERVALO ENTRE OLEADAS
+     * =================================================
+     *
+     * Antes:
+     * 120 ms
+     *
+     * Ahora:
+     * 220 ms
+     *
+     * Esto evita que se acumulen partículas.
+     */
+
+    intervalo: 220,
+
+
+    /*
+     * =================================================
+     * EXPLOSIÓN INICIAL
+     * =================================================
+     *
+     * Antes:
+     * 220
+     *
+     * Ahora:
+     * 70
+     */
+
+    explosionInicial: 70,
+
+
+    /*
+     * =================================================
+     * CONFETI LATERAL
+     * =================================================
+     *
+     * Cantidad por lado.
+     *
+     * Antes:
+     * 22
+     *
+     * Ahora:
+     * 7
+     */
+
+    lateralPorOleada: 7,
+
+
+    /*
+     * =================================================
+     * CONFETI DESDE ARRIBA
+     * =================================================
+     *
+     * Antes:
+     * 12
+     *
+     * Ahora:
+     * 4
+     */
+
+    superiorPorOleada: 4,
+
+
+    /*
+     * =================================================
+     * VIDA DE LAS PARTÍCULAS
+     * =================================================
+     *
+     * Antes había valores de 300-360 ticks.
+     *
+     * Ahora mantenemos el confeti mucho más corto.
+     */
+
+    ticksLateral: 150,
+
+    ticksSuperior: 160,
+
+    ticksExplosion: 160
+
+};
+
+
+/* =====================================================
+   ELEMENTOS
+   ===================================================== */
+
+const overlay =
+    document.getElementById("overlay");
+
 
 const audio =
-    document.getElementById(
-        "musicaCumple"
-    );
+    document.getElementById("musicaCumple");
 
 
-// =========================================================
-// SWIPER
-// =========================================================
+/* =====================================================
+   SWIPER
+   ===================================================== */
 
-const swiper =
-    new Swiper(
+const swiperElement =
+    document.querySelector(".mySwiper");
+
+
+let swiper = null;
+
+
+if (
+    swiperElement &&
+    typeof Swiper !== "undefined"
+) {
+
+    swiper = new Swiper(
         ".mySwiper",
         {
 
             loop: true,
 
-            speed: 650,
-
-            grabCursor: true,
-
             centeredSlides: true,
 
             slidesPerView: 1,
 
-            spaceBetween: 18,
+            spaceBetween: 15,
 
-            autoHeight: true,
+            grabCursor: true,
 
             autoplay: {
 
-                delay: 4200,
+                delay: 4000,
 
                 disableOnInteraction: false,
 
@@ -63,8 +234,7 @@ const swiper =
 
             pagination: {
 
-                el:
-                    ".swiper-pagination",
+                el: ".swiper-pagination",
 
                 clickable: true
 
@@ -72,323 +242,990 @@ const swiper =
 
             navigation: {
 
-                nextEl:
-                    ".swiper-button-next",
+                nextEl: ".swiper-button-next",
 
-                prevEl:
-                    ".swiper-button-prev"
+                prevEl: ".swiper-button-prev"
 
-            }
+            },
+
+            effect: "slide",
+
+            speed: 650
 
         }
     );
 
+}
 
-// =========================================================
-// INICIAR INVITACIÓN
-// =========================================================
+
+/* =====================================================
+   APERTURA DE LA INVITACIÓN
+   ===================================================== */
+
+let invitacionIniciada = false;
+
 
 function iniciarInvitacion() {
 
-
-    if (audio) {
-
-        audio.volume = 0.45;
-
-        audio.play().catch(() => {
-
-            console.log(
-                "El navegador bloqueó el audio."
-            );
-
-        });
-
-    }
-
-
-    const overlay =
-        document.getElementById(
-            "overlay"
-        );
-
-
-    const truck =
-        document.getElementById(
-            "openingTruck"
-        );
-
-
     /*
-       Animación especial del Monster Truck.
+     * Evitamos que el botón pueda ejecutar
+     * la animación dos veces.
+     */
 
-       Primero aceleramos.
-       Después hacemos un pequeño salto.
-    */
-
-    if (truck) {
-
-        truck.style.animation =
-            "none";
-
-        truck.offsetHeight;
-
-        truck.style.transition =
-            "transform .75s cubic-bezier(.2,.8,.2,1)";
-
-        truck.style.transform =
-            "translateX(-50%) translateX(120px) translateY(-20px) rotate(8deg)";
-
-    }
-
-
-    lanzarConfetiOriginal();
-
-
-    setTimeout(() => {
-
-        overlay.style.transform =
-            "translateY(-100%)";
-
-
-    }, 650);
-
-
-    setTimeout(() => {
-
-        overlay.style.display =
-            "none";
-
-
-    }, 1500);
-
-}
-
-
-// =========================================================
-// CONFETI
-// =========================================================
-
-function lanzarConfetiOriginal() {
-
-
-    const duration =
-        3500;
-
-
-    const end =
-        Date.now() + duration;
-
-
-    function frame() {
-
-
-        confetti({
-
-            particleCount: 4,
-
-            angle: 60,
-
-            spread: 60,
-
-            origin: {
-                x: 0
-            }
-
-        });
-
-
-        confetti({
-
-            particleCount: 4,
-
-            angle: 120,
-
-            spread: 60,
-
-            origin: {
-                x: 1
-            }
-
-        });
-
-
-        if (
-            Date.now() < end
-        ) {
-
-            requestAnimationFrame(
-                frame
-            );
-
-        }
-
-    }
-
-
-    frame();
-
-}
-
-
-// =========================================================
-// FUEGOS ARTIFICIALES
-// =========================================================
-
-let fuegosLanzados =
-    false;
-
-
-function lanzarFuegosArtificiales() {
-
-
-    if (fuegosLanzados) {
+    if (invitacionIniciada) {
 
         return;
 
     }
 
 
-    fuegosLanzados =
-        true;
+    invitacionIniciada = true;
 
 
-    const duration =
-        15000;
+    if (!overlay) {
+
+        return;
+
+    }
 
 
-    const animationEnd =
-        Date.now() + duration;
+    /*
+     * Bloqueamos el scroll durante
+     * la transición.
+     */
+
+    document.body.style.overflow =
+        "hidden";
 
 
-    const defaults = {
+    /* =================================================
+       AUDIO
+       ================================================= */
 
-        startVelocity: 30,
+    if (audio) {
 
-        spread: 360,
-
-        ticks: 60,
-
-        zIndex: 0
-
-    };
+        audio.volume = 0.35;
 
 
-    function randomInRange(
-        min,
-        max
+        audio.play().catch(error => {
+
+            console.log(
+                "El navegador bloqueó el audio:",
+                error
+            );
+
+        });
+
+    }
+
+
+    /* =================================================
+       EXPLOSIÓN
+       ================================================= */
+
+    lanzarExplosion();
+
+
+    /*
+     * Polvo.
+     */
+
+    setTimeout(() => {
+
+        crearPolvo();
+
+    }, 80);
+
+
+    /*
+     * =================================================
+     * CONFETI
+     * =================================================
+     *
+     * Arranca inmediatamente después
+     * del impacto.
+     */
+
+    setTimeout(() => {
+
+        lanzarConfetiPotente();
+
+    }, 60);
+
+
+    /*
+     * =================================================
+     * SALIDA DEL OVERLAY
+     * =================================================
+     */
+
+    setTimeout(() => {
+
+        overlay.classList.add(
+            "opening-finished"
+        );
+
+
+        setTimeout(() => {
+
+            document.body.style.overflow =
+                "auto";
+
+        }, 750);
+
+    }, 280);
+
+}
+
+
+/* =====================================================
+   EXPLOSIÓN PROFESIONAL
+   ===================================================== */
+
+function lanzarExplosion() {
+
+    if (!overlay) {
+
+        return;
+
+    }
+
+
+    /*
+     * Contenedor de la explosión.
+     */
+
+    const explosionLayer =
+        document.createElement("div");
+
+
+    explosionLayer.className =
+        "explosion-layer";
+
+
+    explosionLayer.style.position =
+        "absolute";
+
+
+    explosionLayer.style.inset =
+        "0";
+
+
+    explosionLayer.style.pointerEvents =
+        "none";
+
+
+    explosionLayer.style.zIndex =
+        "4050";
+
+
+    overlay.appendChild(
+        explosionLayer
+    );
+
+
+    /* =================================================
+       FLASH
+       ================================================= */
+
+    const flash =
+        document.createElement("div");
+
+
+    flash.className =
+        "explosion-flash";
+
+
+    explosionLayer.appendChild(
+        flash
+    );
+
+
+    /* =================================================
+       ONDA
+       ================================================= */
+
+    const wave =
+        document.createElement("div");
+
+
+    wave.className =
+        "explosion-wave";
+
+
+    explosionLayer.appendChild(
+        wave
+    );
+
+
+    /* =================================================
+       ANILLO
+       ================================================= */
+
+    const ring =
+        document.createElement("div");
+
+
+    ring.className =
+        "explosion-ring";
+
+
+    explosionLayer.appendChild(
+        ring
+    );
+
+
+    /*
+     * Activamos animaciones después
+     * de insertar los elementos.
+     */
+
+    requestAnimationFrame(() => {
+
+        flash.classList.add(
+            "active"
+        );
+
+        wave.classList.add(
+            "active"
+        );
+
+        ring.classList.add(
+            "active"
+        );
+
+    });
+
+
+    /* =================================================
+       PARTÍCULAS
+       ================================================= */
+
+    crearParticulasExplosion(
+        explosionLayer
+    );
+
+
+    /* =================================================
+       HUMO
+       ================================================= */
+
+    crearHumoExplosion(
+        explosionLayer
+    );
+
+
+    /* =================================================
+       SACUDIDA
+       ================================================= */
+
+    overlay.animate(
+
+        [
+
+            {
+                transform:
+                    "translate(0, 0) scale(1)"
+            },
+
+            {
+                transform:
+                    "translate(-10px, 4px) scale(1.01)"
+            },
+
+            {
+                transform:
+                    "translate(10px, -4px) scale(1.01)"
+            },
+
+            {
+                transform:
+                    "translate(-7px, 3px) scale(1.005)"
+            },
+
+            {
+                transform:
+                    "translate(7px, -3px) scale(1.005)"
+            },
+
+            {
+                transform:
+                    "translate(0, 0) scale(1)"
+            }
+
+        ],
+
+        {
+
+            duration: 420,
+
+            easing:
+                "cubic-bezier(.36,.07,.19,.97)"
+
+        }
+
+    );
+
+
+    /*
+     * Limpieza.
+     */
+
+    setTimeout(() => {
+
+        explosionLayer.remove();
+
+    }, 1500);
+
+}
+
+
+/* =====================================================
+   PARTÍCULAS DE EXPLOSIÓN
+   ===================================================== */
+
+function crearParticulasExplosion(
+    container
+) {
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    const colores = [
+
+        "#ffffff",
+
+        "#ffd43b",
+
+        "#ff3048",
+
+        "#ff8a3d",
+
+        "#ffef9a",
+
+        "#ffb347",
+
+        "#fff4c2"
+
+    ];
+
+
+    const cantidad =
+        EXPLOSION_CONFIG.particulas;
+
+
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
     ) {
 
-        return (
-            Math.random()
-            *
-            (max - min)
-            +
-            min
+        const particle =
+            document.createElement("div");
+
+
+        particle.className =
+            "explosion-particle";
+
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const distance =
+            EXPLOSION_CONFIG.distanciaMin +
+            Math.random() *
+            (
+                EXPLOSION_CONFIG.distanciaMax -
+                EXPLOSION_CONFIG.distanciaMin
+            );
+
+
+        const tx =
+            Math.cos(angle) *
+            distance;
+
+
+        const ty =
+            Math.sin(angle) *
+            distance;
+
+
+        const size =
+            EXPLOSION_CONFIG.tamanoMin +
+            Math.random() *
+            (
+                EXPLOSION_CONFIG.tamanoMax -
+                EXPLOSION_CONFIG.tamanoMin
+            );
+
+
+        const duration =
+            EXPLOSION_CONFIG.duracionMin +
+            Math.random() *
+            (
+                EXPLOSION_CONFIG.duracionMax -
+                EXPLOSION_CONFIG.duracionMin
+            );
+
+
+        const rotation =
+            (
+                Math.random() *
+                1080
+            ) -
+            540;
+
+
+        particle.style.setProperty(
+            "--tx",
+            `${tx}px`
+        );
+
+
+        particle.style.setProperty(
+            "--ty",
+            `${ty}px`
+        );
+
+
+        particle.style.setProperty(
+            "--size",
+            `${size}px`
+        );
+
+
+        particle.style.setProperty(
+            "--duration",
+            `${duration}ms`
+        );
+
+
+        particle.style.setProperty(
+            "--rotation",
+            `${rotation}deg`
+        );
+
+
+        particle.style.setProperty(
+            "--particle-color",
+            colores[
+                Math.floor(
+                    Math.random() *
+                    colores.length
+                )
+            ]
+        );
+
+
+        particle.style.marginLeft =
+            `${(Math.random() * 14) - 7}px`;
+
+
+        particle.style.marginTop =
+            `${(Math.random() * 14) - 7}px`;
+
+
+        container.appendChild(
+            particle
+        );
+
+
+        setTimeout(() => {
+
+            particle.remove();
+
+        }, duration + 150);
+
+    }
+
+}
+
+
+/* =====================================================
+   HUMO DE LA EXPLOSIÓN
+   ===================================================== */
+
+function crearHumoExplosion(
+    container
+) {
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    const cantidad =
+        EXPLOSION_CONFIG.humo;
+
+
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+
+        const smoke =
+            document.createElement("div");
+
+
+        smoke.className =
+            "explosion-smoke";
+
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const distance =
+            40 +
+            Math.random() *
+            260;
+
+
+        const tx =
+            Math.cos(angle) *
+            distance;
+
+
+        const ty =
+            Math.sin(angle) *
+            distance;
+
+
+        const size =
+            40 +
+            Math.random() *
+            75;
+
+
+        const duration =
+            900 +
+            Math.random() *
+            850;
+
+
+        smoke.style.setProperty(
+            "--tx",
+            `${tx}px`
+        );
+
+
+        smoke.style.setProperty(
+            "--ty",
+            `${ty}px`
+        );
+
+
+        smoke.style.setProperty(
+            "--size",
+            `${size}px`
+        );
+
+
+        smoke.style.setProperty(
+            "--duration",
+            `${duration}ms`
+        );
+
+
+        container.appendChild(
+            smoke
+        );
+
+
+        setTimeout(() => {
+
+            smoke.remove();
+
+        }, duration + 150);
+
+    }
+
+}
+
+
+/* =====================================================
+   POLVO MONSTER TRUCK
+   ===================================================== */
+
+function crearPolvo() {
+
+    const container =
+        document.getElementById(
+            "dustContainer"
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    /*
+     * Polvo visual.
+     */
+
+    for (
+        let i = 0;
+        i < 60;
+        i++
+    ) {
+
+        const dust =
+            document.createElement("div");
+
+
+        dust.className =
+            "dust";
+
+
+        const x =
+            Math.random() *
+            80 +
+            10;
+
+
+        const y =
+            -(
+                Math.random() *
+                80 +
+                20
+            );
+
+
+        const duration =
+            (
+                Math.random() *
+                1.5 +
+                1.2
+            ) +
+            "s";
+
+
+        dust.style.left =
+            x + "%";
+
+
+        dust.style.setProperty(
+            "--x",
+            (
+                Math.random() *
+                100 -
+                50
+            ) + "px"
+        );
+
+
+        dust.style.setProperty(
+            "--y",
+            y + "px"
+        );
+
+
+        dust.style.setProperty(
+            "--duration",
+            duration
+        );
+
+
+        dust.style.animationDelay =
+            Math.random() *
+            .8 +
+            "s";
+
+
+        container.appendChild(
+            dust
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   CONFETI
+   ===================================================== */
+
+function lanzarConfetiPotente() {
+
+    if (
+        typeof confetti !==
+        "function"
+    ) {
+
+        console.warn(
+            "La librería canvas-confetti no está cargada."
+        );
+
+        return;
+
+    }
+
+
+    /* =================================================
+       EXPLOSIÓN CENTRAL
+       ================================================= */
+
+    confetti({
+
+        particleCount:
+            CONFETI_CONFIG.explosionInicial,
+
+        spread: 140,
+
+        startVelocity: 50,
+
+        angle: 90,
+
+        gravity: .8,
+
+        ticks:
+            CONFETI_CONFIG.ticksExplosion,
+
+        scalar: 1.05,
+
+        drift: 0,
+
+        origin: {
+
+            x: .5,
+
+            y: .48
+
+        }
+
+    });
+
+
+    /*
+     * =================================================
+     * SEGUNDA PEQUEÑA OLEADA
+     * =================================================
+     *
+     * Mucho más pequeña que antes.
+     */
+
+    setTimeout(() => {
+
+        confetti({
+
+            particleCount: 25,
+
+            spread: 160,
+
+            startVelocity: 40,
+
+            gravity: .78,
+
+            ticks: 150,
+
+            scalar: 1.02,
+
+            origin: {
+
+                x: .5,
+
+                y: .42
+
+            }
+
+        });
+
+    }, 250);
+
+
+    /* =================================================
+       LLUVIA LATERAL
+       ================================================= */
+
+    const duration =
+        CONFETI_CONFIG.duracionLluvia;
+
+
+    const end =
+        Date.now() +
+        duration;
+
+
+    function frame() {
+
+        /*
+         * Si terminó el período de lluvia,
+         * no generamos más partículas.
+         */
+
+        if (
+            Date.now() >=
+            end
+        ) {
+
+            return;
+
+        }
+
+
+        /* =============================================
+           IZQUIERDA
+           ============================================= */
+
+        confetti({
+
+            particleCount:
+                CONFETI_CONFIG.lateralPorOleada,
+
+            angle: 60,
+
+            spread: 65,
+
+            startVelocity: 38,
+
+            gravity: .8,
+
+            ticks:
+                CONFETI_CONFIG.ticksLateral,
+
+            scalar: .95,
+
+            drift:
+                Math.random() * .3,
+
+            origin: {
+
+                x: 0,
+
+                y:
+                    .3 +
+                    Math.random() * .35
+
+            }
+
+        });
+
+
+        /* =============================================
+           DERECHA
+           ============================================= */
+
+        confetti({
+
+            particleCount:
+                CONFETI_CONFIG.lateralPorOleada,
+
+            angle: 120,
+
+            spread: 65,
+
+            startVelocity: 38,
+
+            gravity: .8,
+
+            ticks:
+                CONFETI_CONFIG.ticksLateral,
+
+            scalar: .95,
+
+            drift:
+                Math.random() * -.3,
+
+            origin: {
+
+                x: 1,
+
+                y:
+                    .3 +
+                    Math.random() * .35
+
+            }
+
+        });
+
+
+        /* =============================================
+           DESDE ARRIBA
+           ============================================= */
+
+        confetti({
+
+            particleCount:
+                CONFETI_CONFIG.superiorPorOleada,
+
+            angle: 90,
+
+            spread: 90,
+
+            startVelocity: 18,
+
+            gravity: .65,
+
+            ticks:
+                CONFETI_CONFIG.ticksSuperior,
+
+            scalar: .85,
+
+            origin: {
+
+                x:
+                    Math.random(),
+
+                y: -.05
+
+            }
+
+        });
+
+
+        /*
+         * Siguiente oleada.
+         */
+
+        setTimeout(
+            frame,
+            CONFETI_CONFIG.interval
         );
 
     }
 
 
-    const interval =
-        setInterval(
-            () => {
+    /*
+     * Comenzamos la lluvia.
+     */
 
-
-                const timeLeft =
-                    animationEnd
-                    -
-                    Date.now();
-
-
-                if (
-                    timeLeft <= 0
-                ) {
-
-                    clearInterval(
-                        interval
-                    );
-
-                    return;
-
-                }
-
-
-                const particleCount =
-                    50
-                    *
-                    (timeLeft / duration);
-
-
-                confetti(
-
-                    Object.assign(
-                        {},
-                        defaults,
-                        {
-
-                            particleCount,
-
-                            origin: {
-
-                                x:
-                                    randomInRange(
-                                        .1,
-                                        .3
-                                    ),
-
-                                y:
-                                    Math.random()
-                                    -
-                                    .2
-
-                            }
-
-                        }
-                    )
-
-                );
-
-
-                confetti(
-
-                    Object.assign(
-                        {},
-                        defaults,
-                        {
-
-                            particleCount,
-
-                            origin: {
-
-                                x:
-                                    randomInRange(
-                                        .7,
-                                        .9
-                                    ),
-
-                                y:
-                                    Math.random()
-                                    -
-                                    .2
-
-                            }
-
-                        }
-                    )
-
-                );
-
-
-            },
-            250
-        );
+    frame();
 
 }
 
 
-// =========================================================
-// CUENTA REGRESIVA
-// =========================================================
+/* =====================================================
+   COMPATIBILIDAD
+   ===================================================== */
+
+function lanzarConfetiOriginal() {
+
+    lanzarConfetiPotente();
+
+}
+
+
+/* =====================================================
+   FECHA DEL EVENTO
+   ===================================================== */
 
 const targetDate =
     new Date(
@@ -396,18 +1233,29 @@ const targetDate =
     ).getTime();
 
 
-let timerInterval;
+/* =====================================================
+   CONTADOR
+   ===================================================== */
+
+const timerInterval =
+    setInterval(
+        actualizarContador,
+        1000
+    );
+
+
+actualizarContador();
 
 
 function actualizarContador() {
-
 
     const now =
         Date.now();
 
 
     const diff =
-        targetDate - now;
+        targetDate -
+        now;
 
 
     const dEl =
@@ -434,18 +1282,17 @@ function actualizarContador() {
         );
 
 
-    if (
-        diff <= 0
-    ) {
+    /*
+     * =================================================
+     * EL EVENTO YA LLEGÓ
+     * =================================================
+     */
 
+    if (diff <= 0) {
 
-        if (timerInterval) {
-
-            clearInterval(
-                timerInterval
-            );
-
-        }
+        clearInterval(
+            timerInterval
+        );
 
 
         const countdown =
@@ -464,15 +1311,15 @@ function actualizarContador() {
 
             countdown.innerHTML = `
 
-                <div style="
-                    grid-column:1/-1;
-                    padding:10px 0;
-                    font-size:1.15rem;
-                    font-weight:900;
-                    color:#2ed573;
-                ">
+                <div class="birthday-arrived">
 
-                    ¡LLEGÓ EL GRAN DÍA! 🎂
+                    🎂
+
+                    <strong>
+                        ¡LLEGÓ EL GRAN DÍA!
+                    </strong>
+
+                    🎉
 
                 </div>
 
@@ -491,12 +1338,18 @@ function actualizarContador() {
 
         lanzarFuegosArtificiales();
 
+
         return;
 
     }
 
 
-    const d =
+    /*
+     * =================================================
+     * DÍAS
+     * ================================================= */
+
+    const days =
         Math.floor(
             diff /
             (
@@ -508,9 +1361,13 @@ function actualizarContador() {
         );
 
 
-    const h =
-        Math.floor(
+    /*
+     * =================================================
+     * HORAS
+     * ================================================= */
 
+    const hours =
+        Math.floor(
             (
                 diff %
                 (
@@ -519,21 +1376,22 @@ function actualizarContador() {
                     60 *
                     24
                 )
-
-            )
-            /
+            ) /
             (
                 1000 *
                 60 *
                 60
             )
-
         );
 
 
-    const m =
-        Math.floor(
+    /*
+     * =================================================
+     * MINUTOS
+     * ================================================= */
 
+    const minutes =
+        Math.floor(
             (
                 diff %
                 (
@@ -541,39 +1399,41 @@ function actualizarContador() {
                     60 *
                     60
                 )
-
-            )
-            /
+            ) /
             (
                 1000 *
                 60
             )
-
         );
 
 
-    const s =
-        Math.floor(
+    /*
+     * =================================================
+     * SEGUNDOS
+     * ================================================= */
 
+    const seconds =
+        Math.floor(
             (
                 diff %
                 (
                     1000 *
                     60
                 )
-
-            )
-            /
+            ) /
             1000
-
         );
 
+
+    /*
+     * Actualización visual.
+     */
 
     if (dEl) {
 
         dEl.innerText =
-            String(d)
-            .padStart(2, "0");
+            String(days)
+                .padStart(2, "0");
 
     }
 
@@ -581,8 +1441,8 @@ function actualizarContador() {
     if (hEl) {
 
         hEl.innerText =
-            String(h)
-            .padStart(2, "0");
+            String(hours)
+                .padStart(2, "0");
 
     }
 
@@ -590,8 +1450,8 @@ function actualizarContador() {
     if (mEl) {
 
         mEl.innerText =
-            String(m)
-            .padStart(2, "0");
+            String(minutes)
+                .padStart(2, "0");
 
     }
 
@@ -599,47 +1459,168 @@ function actualizarContador() {
     if (sEl) {
 
         sEl.innerText =
-            String(s)
-            .padStart(2, "0");
+            String(seconds)
+                .padStart(2, "0");
 
     }
 
 }
 
 
-actualizarContador();
+/* =====================================================
+   FUEGOS ARTIFICIALES
+   ===================================================== */
+
+function lanzarFuegosArtificiales() {
+
+    if (
+        typeof confetti !==
+        "function"
+    ) {
+
+        return;
+
+    }
 
 
-timerInterval =
-    setInterval(
-        actualizarContador,
-        1000
-    );
+    const duration =
+        12000;
 
 
-// =========================================================
-// MODAL
-// =========================================================
-
-const modal =
-    document.getElementById(
-        "modalAsistencia"
-    );
+    const animationEnd =
+        Date.now() +
+        duration;
 
 
-const asistencia =
-    document.getElementById(
-        "asistencia"
-    );
+    const defaults = {
+
+        startVelocity: 30,
+
+        spread: 360,
+
+        ticks: 60,
+
+        zIndex: 1000
+
+    };
 
 
-const seccionPersonas =
-    document.getElementById(
-        "seccion-personas"
-    );
+    function randomInRange(
+        min,
+        max
+    ) {
 
+        return Math.random() *
+            (
+                max -
+                min
+            ) +
+            min;
+
+    }
+
+
+    const interval =
+        setInterval(() => {
+
+            const timeLeft =
+                animationEnd -
+                Date.now();
+
+
+            if (
+                timeLeft <= 0
+            ) {
+
+                clearInterval(
+                    interval
+                );
+
+                return;
+
+            }
+
+
+            const particleCount =
+                50 *
+                (
+                    timeLeft /
+                    duration
+                );
+
+
+            confetti(
+
+                Object.assign(
+                    {},
+                    defaults,
+                    {
+
+                        particleCount,
+
+                        origin: {
+
+                            x:
+                                randomInRange(
+                                    .1,
+                                    .3
+                                ),
+
+                            y:
+                                Math.random() -
+                                .2
+
+                        }
+
+                    }
+                )
+
+            );
+
+
+            confetti(
+
+                Object.assign(
+                    {},
+                    defaults,
+                    {
+
+                        particleCount,
+
+                        origin: {
+
+                            x:
+                                randomInRange(
+                                    .7,
+                                    .9
+                                ),
+
+                            y:
+                                Math.random() -
+                                .2
+
+                        }
+
+                    }
+                )
+
+            );
+
+        }, 250);
+
+}
+
+
+/* =====================================================
+   MODAL
+   ===================================================== */
 
 function abrirModal() {
+
+    const modal =
+        document.getElementById(
+            "modalAsistencia"
+        );
 
 
     if (!modal) {
@@ -657,31 +1638,27 @@ function abrirModal() {
         "hidden";
 
 
-    setTimeout(
-        () => {
+    setTimeout(() => {
 
+        document
+            .getElementById("nombre")
+            ?.focus();
 
-            const nombre =
-                document.getElementById(
-                    "nombre"
-                );
-
-
-            if (nombre) {
-
-                nombre.focus();
-
-            }
-
-
-        },
-        150
-    );
+    }, 200);
 
 }
 
 
+/* =====================================================
+   CERRAR MODAL
+   ===================================================== */
+
 function cerrarModal() {
+
+    const modal =
+        document.getElementById(
+            "modalAsistencia"
+        );
 
 
     if (!modal) {
@@ -696,21 +1673,27 @@ function cerrarModal() {
 
 
     document.body.style.overflow =
-        "";
+        "auto";
 
 }
 
 
-// =========================================================
-// CLICK AFUERA
-// =========================================================
+/* =====================================================
+   CERRAR MODAL AL TOCAR AFUERA
+   ===================================================== */
 
 window.addEventListener(
     "click",
-    (event) => {
+    function(event) {
+
+        const modal =
+            document.getElementById(
+                "modalAsistencia"
+            );
 
 
         if (
+            modal &&
             event.target === modal
         ) {
 
@@ -722,28 +1705,33 @@ window.addEventListener(
 );
 
 
-// =========================================================
-// ESC
-// =========================================================
+/* =====================================================
+   ESCAPE
+   ===================================================== */
 
 document.addEventListener(
     "keydown",
-    (event) => {
+    function(event) {
+
+        if (
+            event.key !== "Escape"
+        ) {
+
+            return;
+
+        }
+
+
+        const modal =
+            document.getElementById(
+                "modalAsistencia"
+            );
 
 
         if (
-
-            event.key === "Escape"
-
-            &&
-
-            modal
-
-            &&
-
+            modal &&
             modal.style.display ===
                 "block"
-
         ) {
 
             cerrarModal();
@@ -754,24 +1742,28 @@ document.addEventListener(
 );
 
 
-// =========================================================
-// ASISTENCIA
-// =========================================================
+/* =====================================================
+   PERSONAS
+   ===================================================== */
 
-if (asistencia) {
+function togglePersonas() {
 
-    asistencia.addEventListener(
-        "change",
-        actualizarSeccionPersonas
-    );
-
-}
+    const asistencia =
+        document.getElementById(
+            "asistencia"
+        );
 
 
-function actualizarSeccionPersonas() {
+    const seccion =
+        document.getElementById(
+            "seccion-personas"
+        );
 
 
-    if (!seccionPersonas) {
+    if (
+        !asistencia ||
+        !seccion
+    ) {
 
         return;
 
@@ -782,12 +1774,12 @@ function actualizarSeccionPersonas() {
         asistencia.value === "No"
     ) {
 
-        seccionPersonas.style.display =
+        seccion.style.display =
             "none";
 
     } else {
 
-        seccionPersonas.style.display =
+        seccion.style.display =
             "block";
 
     }
@@ -795,38 +1787,34 @@ function actualizarSeccionPersonas() {
 }
 
 
-// =========================================================
-// WHATSAPP - CONFIRMACIÓN
-// =========================================================
+/* =====================================================
+   WHATSAPP - CONFIRMACIÓN
+   ===================================================== */
 
 function enviarAsistencia() {
 
-
     const nombre =
-        document.getElementById(
-            "nombre"
-        )
-        .value
-        .trim();
+        document
+            .getElementById("nombre")
+            ?.value
+            .trim();
 
 
-    const respuesta =
-        document.getElementById(
-            "asistencia"
-        )
-        .value;
+    const asistencia =
+        document
+            .getElementById("asistencia")
+            ?.value;
 
 
     const personas =
-        document.getElementById(
-            "personas"
-        )
-        .value;
+        document
+            .getElementById("personas")
+            ?.value;
 
 
     if (!nombre) {
 
-        alert(
+        mostrarMensaje(
             "Por favor, ingresá tu nombre y apellido."
         );
 
@@ -835,10 +1823,10 @@ function enviarAsistencia() {
     }
 
 
-    if (!respuesta) {
+    if (!asistencia) {
 
-        alert(
-            "Por favor, indicá si vas a asistir."
+        mostrarMensaje(
+            "Seleccioná si vas a asistir."
         );
 
         return;
@@ -847,13 +1835,12 @@ function enviarAsistencia() {
 
 
     if (
-        respuesta === "Sí"
-        &&
+        asistencia === "Sí" &&
         !personas
     ) {
 
-        alert(
-            "Por favor, indicá cuántas personas asistirán."
+        mostrarMensaje(
+            "Seleccioná cuántas personas van a asistir."
         );
 
         return;
@@ -861,56 +1848,51 @@ function enviarAsistencia() {
     }
 
 
-    let mensaje;
+    let mensaje =
+        `🎉 *CONFIRMACIÓN DE ASISTENCIA* 🎉\n\n`;
+
+
+    mensaje +=
+        `Hola, soy *${nombre}*.\n\n`;
 
 
     if (
-        respuesta === "Sí"
+        asistencia === "Sí"
     ) {
 
+        mensaje +=
+            `✅ *Confirmo mi asistencia* al cumpleaños de *Maximo* por sus 5 añitos.\n\n`;
 
-        mensaje =
 
-`🏁 *CONFIRMACIÓN DE ASISTENCIA* 🎉
+        mensaje +=
+            `👥 *Cantidad de personas:* ${personas}\n\n`;
 
-Hola, soy *${nombre}*.
 
-Quiero confirmar mi asistencia al cumpleaños de *${NOMBRE_CUMPLEANERO}*, que festeja sus *${EDAD} añitos*. 🎂🚙💨
+        mensaje +=
+            `🏁 ¡Estamos listos para festejar!\n`;
 
-👥 *Cantidad de personas:* ${personas}
 
-📅 *Fecha:* 25 de Agosto
-🕡 *Horario:* 18:30 a 22:30 hs
-📍 *Lugar:* Salón Sueños y Fantasías
-
-¡Muchas gracias por la invitación! ❤️
-
-¡Nos vemos para festejar juntos! 🎉🏁`;
-
+        mensaje +=
+            `🎂 ¡Nos vemos el 25 de agosto! 🎉`;
 
     } else {
 
+        mensaje +=
+            `❌ En esta oportunidad no voy a poder asistir al cumpleaños de *Maximo*.\n\n`;
 
-        mensaje =
 
-`👋 *RESPUESTA A LA INVITACIÓN*
+        mensaje +=
+            `🙏 Les deseo que pasen un hermoso día y disfruten muchísimo del festejo.\n\n`;
 
-Hola, soy *${nombre}*.
 
-Lamentablemente no voy a poder acompañar a *${NOMBRE_CUMPLEANERO}* en su cumpleaños de *${EDAD} añitos*. 🎂
-
-Les deseo que pasen un hermoso día y disfruten muchísimo del festejo. ❤️🎉
-
-¡Muchas gracias por la invitación!`;
-
+        mensaje +=
+            `🎂 ¡Feliz cumple, Maximo! 🎉`;
 
     }
 
 
     const url =
-
         `https://wa.me/${NUMERO_WHATSAPP}?text=` +
-
         encodeURIComponent(
             mensaje
         );
@@ -928,172 +1910,146 @@ Les deseo que pasen un hermoso día y disfruten muchísimo del festejo. ❤️�
 }
 
 
-// =========================================================
-// COMPARTIR INVITACIÓN
-// =========================================================
+/* =====================================================
+   MENSAJE DE VALIDACIÓN
+   ===================================================== */
+
+function mostrarMensaje(texto) {
+
+    if (
+        typeof Swal !==
+        "undefined"
+    ) {
+
+        Swal.fire({
+
+            icon: "warning",
+
+            text: texto,
+
+            confirmButtonText:
+                "Entendido",
+
+            confirmButtonColor:
+                "#ff3048"
+
+        });
+
+        return;
+
+    }
+
+
+    alert(texto);
+
+}
+
+
+/* =====================================================
+   COMPARTIR INVITACIÓN
+   ===================================================== */
 
 async function compartirInvitacion() {
-
 
     const url =
         window.location.href;
 
 
-    const texto =
+    const shareData = {
 
-`🏁🎉 *¡ESTÁS INVITADO!* 🎉🏁
+        title:
+            "🎉 Maximo cumple 5 años",
 
-Maximo cumple *5 añitos* 🎂🚙💨
+        text:
+            "🏁 ¡Prepará los motores! Te invito a festejar conmigo mi cumpleaños número 5. 🎂 ¡Te espero para compartir este día tan especial!",
 
-Te esperamos para compartir juntos una tarde llena de diversión, juegos y mucha alegría.
+        url
 
-📅 *25 de Agosto*
-🕡 *18:30 a 22:30 hs*
-📍 *Salón Sueños y Fantasías*
-
-💌 Abrí la invitación para conocer todos los detalles:
-
-${url}`;
+    };
 
 
-    /*
-       Intentamos compartir:
+    if (
+        navigator.share
+    ) {
 
-       - Foto de Maximo
-       - Texto
-       - URL
+        try {
 
-       Los navegadores compatibles
-       mostrarán el menú nativo
-       de compartir.
-    */
-
-    try {
-
-
-        const response =
-            await fetch(
-                "./image/mamo.jpeg"
+            await navigator.share(
+                shareData
             );
 
+        } catch (error) {
 
-        const blob =
-            await response.blob();
+            if (
+                error?.name !==
+                "AbortError"
+            ) {
 
+                console.log(
+                    "No se pudo compartir:",
+                    error
+                );
 
-        const file =
-            new File(
-
-                [blob],
-
-                "maximo-cumpleanos.jpg",
-
-                {
-                    type:
-                        blob.type
-                        ||
-                        "image/jpeg"
-                }
-
-            );
-
-
-        if (
-
-            navigator.share
-
-            &&
-
-            navigator.canShare
-
-            &&
-
-            navigator.canShare({
-                files: [file]
-            })
-
-        ) {
-
-
-            await navigator.share({
-
-                title:
-                    `🎉 Cumpleaños de ${NOMBRE_CUMPLEANERO}`,
-
-                text:
-                    texto,
-
-                url:
-                    url,
-
-                files:
-                    [file]
-
-            });
-
-
-            return;
+            }
 
         }
 
-
-    } catch (error) {
-
-
-        console.log(
-            "Compartir imagen no disponible:",
-            error
-        );
+        return;
 
     }
 
 
-    /*
-       FALLBACK
+    try {
 
-       Si el navegador no permite
-       compartir archivos, usamos
-       WhatsApp.
-    */
-
-    const whatsappUrl =
-
-        `https://wa.me/?text=` +
-
-        encodeURIComponent(
-            texto
+        await navigator.clipboard.writeText(
+            url
         );
 
 
-    window.open(
-        whatsappUrl,
-        "_blank",
-        "noopener,noreferrer"
-    );
+        mostrarMensaje(
+            "¡Enlace copiado! Ahora podés compartir la invitación."
+        );
+
+    } catch (error) {
+
+        mostrarMensaje(
+            "Copiá el enlace de la invitación desde la barra del navegador."
+        );
+
+    }
 
 }
 
 
-// =========================================================
-// VISIBILITY
-// =========================================================
+/* =====================================================
+   PREVENIR SCROLL DURANTE APERTURA
+   ===================================================== */
 
-document.addEventListener(
-    "visibilitychange",
-    () => {
+document.body.style.overflow =
+    "hidden";
 
 
-        if (
-            document.hidden
-        ) {
+/* =====================================================
+   SEGURIDAD DE IMÁGENES
+   ===================================================== */
 
-            swiper.autoplay.stop();
+document
+    .querySelectorAll("img")
+    .forEach(img => {
 
-        } else {
+        img.setAttribute(
+            "draggable",
+            "false"
+        );
 
-            swiper.autoplay.start();
 
-        }
+        img.addEventListener(
+            "contextmenu",
+            event => {
 
-    }
-);
+                event.preventDefault();
+
+            }
+        );
+
+    });

@@ -112,10 +112,9 @@ select {
     visibility: visible;
 
     /*
-     * IMPORTANTE:
-     * La salida ahora es mucho más rápida.
-     * No esperamos varios segundos para
-     * mostrar la invitación.
+     * La explosión ahora tiene tiempo
+     * suficiente para verse antes de
+     * que el overlay desaparezca.
      */
 
     transition:
@@ -336,7 +335,7 @@ select {
 
     animation:
         explosionFlash
-        .55s
+        .9s
         cubic-bezier(.12,.72,.2,1)
         forwards;
 
@@ -382,6 +381,14 @@ select {
         opacity: .45;
 
         transform: scale(1.25);
+
+    }
+
+    70% {
+
+        opacity: .2;
+
+        transform: scale(1.45);
 
     }
 
@@ -439,7 +446,7 @@ select {
 
     animation:
         explosionWave
-        .72s
+        1.15s
         cubic-bezier(.12,.72,.2,1)
         forwards;
 
@@ -457,6 +464,12 @@ select {
     }
 
     12% {
+
+        opacity: 1;
+
+    }
+
+    30% {
 
         opacity: 1;
 
@@ -528,7 +541,7 @@ select {
 
     animation:
         explosionRing
-        .62s
+        1s
         cubic-bezier(.12,.72,.2,1)
         forwards;
 
@@ -545,15 +558,27 @@ select {
 
     }
 
-    25% {
+    20% {
 
         opacity: 1;
+
+    }
+
+    35% {
+
+        opacity: .95;
 
     }
 
     55% {
 
         opacity: .55;
+
+    }
+
+    75% {
+
+        opacity: .25;
 
     }
 
@@ -628,15 +653,33 @@ select {
 
     }
 
+    20% {
+
+        opacity: 1;
+
+    }
+
     35% {
 
         opacity: 1;
 
     }
 
+    55% {
+
+        opacity: .95;
+
+    }
+
     72% {
 
         opacity: .75;
+
+    }
+
+    88% {
+
+        opacity: .4;
 
     }
 
@@ -715,15 +758,29 @@ select {
 
     }
 
-    15% {
+    12% {
 
-        opacity: .75;
+        opacity: .8;
+
+        transform: scale(.55);
+
+    }
+
+    25% {
+
+        opacity: .72;
 
     }
 
     40% {
 
         opacity: .48;
+
+    }
+
+    65% {
+
+        opacity: .3;
 
     }
 
@@ -2656,7 +2713,7 @@ select:focus {
 
 @media (prefers-reduced-motion: reduce) {
 
-    *,
+    * ,
     *::before,
     *::after {
 

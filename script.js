@@ -22,43 +22,40 @@ const NUMERO_WHATSAPP = "5492644629511";
 const EXPLOSION_CONFIG = {
 
     /*
-     * Cantidad de partículas de la explosión.
+     * Cantidad de partículas.
      */
-
     particulas: 180,
-
 
     /*
      * Distancia mínima y máxima.
      */
-
     distanciaMin: 90,
-
     distanciaMax: 520,
-
 
     /*
      * Tamaño de las partículas.
      */
-
     tamanoMin: 3,
-
     tamanoMax: 10,
 
-
     /*
-     * Duración de la explosión.
+     * DURACIÓN AUMENTADA.
+     *
+     * Antes:
+     * 650 - 1150 ms
+     *
+     * Ahora:
+     * 1000 - 1800 ms
+     *
+     * Esto hace que las partículas
+     * permanezcan visibles mucho más tiempo.
      */
-
-    duracionMin: 650,
-
-    duracionMax: 1150,
-
+    duracionMin: 1000,
+    duracionMax: 1800,
 
     /*
      * Cantidad de humo.
      */
-
     humo: 28
 
 };
@@ -68,108 +65,19 @@ const EXPLOSION_CONFIG = {
  * =====================================================
  * CONFIGURACIÓN DEL CONFETI
  * =====================================================
- *
- * IMPORTANTE:
- *
- * Esta configuración controla exclusivamente
- * el CONFETI canvas-confetti.
- *
- * La explosión Monster Truck tiene su propia
- * configuración arriba.
  */
 
 const CONFETI_CONFIG = {
 
-    /*
-     * =================================================
-     * DURACIÓN DE LA LLUVIA
-     * =================================================
-     *
-     * Antes:
-     * 7000 ms
-     *
-     * Ahora:
-     * 2200 ms
-     *
-     * El confeti deja de generarse rápidamente.
-     */
-
     duracionLluvia: 2200,
-
-
-    /*
-     * =================================================
-     * INTERVALO ENTRE OLEADAS
-     * =================================================
-     *
-     * Antes:
-     * 120 ms
-     *
-     * Ahora:
-     * 220 ms
-     *
-     * Esto evita que se acumulen partículas.
-     */
 
     intervalo: 220,
 
-
-    /*
-     * =================================================
-     * EXPLOSIÓN INICIAL
-     * =================================================
-     *
-     * Antes:
-     * 220
-     *
-     * Ahora:
-     * 70
-     */
-
     explosionInicial: 70,
-
-
-    /*
-     * =================================================
-     * CONFETI LATERAL
-     * =================================================
-     *
-     * Cantidad por lado.
-     *
-     * Antes:
-     * 22
-     *
-     * Ahora:
-     * 7
-     */
 
     lateralPorOleada: 7,
 
-
-    /*
-     * =================================================
-     * CONFETI DESDE ARRIBA
-     * =================================================
-     *
-     * Antes:
-     * 12
-     *
-     * Ahora:
-     * 4
-     */
-
     superiorPorOleada: 4,
-
-
-    /*
-     * =================================================
-     * VIDA DE LAS PARTÍCULAS
-     * =================================================
-     *
-     * Antes había valores de 300-360 ticks.
-     *
-     * Ahora mantenemos el confeti mucho más corto.
-     */
 
     ticksLateral: 150,
 
@@ -291,7 +199,7 @@ function iniciarInvitacion() {
 
     /*
      * Bloqueamos el scroll durante
-     * la transición.
+     * toda la animación.
      */
 
     document.body.style.overflow =
@@ -334,29 +242,37 @@ function iniciarInvitacion() {
 
         crearPolvo();
 
-    }, 80);
+    }, 100);
 
 
     /*
      * =================================================
      * CONFETI
      * =================================================
-     *
-     * Arranca inmediatamente después
-     * del impacto.
      */
 
     setTimeout(() => {
 
         lanzarConfetiPotente();
 
-    }, 60);
+    }, 180);
 
 
     /*
      * =================================================
      * SALIDA DEL OVERLAY
      * =================================================
+     *
+     * ANTES:
+     * 280 ms
+     *
+     * AHORA:
+     * 1900 ms
+     *
+     * Esto es fundamental.
+     *
+     * La explosión necesita tiempo para
+     * desarrollarse antes de sacar el overlay.
      */
 
     setTimeout(() => {
@@ -366,6 +282,11 @@ function iniciarInvitacion() {
         );
 
 
+        /*
+         * Esperamos a que termine
+         * la transición del overlay.
+         */
+
         setTimeout(() => {
 
             document.body.style.overflow =
@@ -373,7 +294,7 @@ function iniciarInvitacion() {
 
         }, 750);
 
-    }, 280);
+    }, 1900);
 
 }
 
@@ -476,7 +397,7 @@ function lanzarExplosion() {
 
 
     /*
-     * Activamos animaciones después
+     * Activamos las animaciones después
      * de insertar los elementos.
      */
 
@@ -557,7 +478,7 @@ function lanzarExplosion() {
 
         {
 
-            duration: 420,
+            duration: 520,
 
             easing:
                 "cubic-bezier(.36,.07,.19,.97)"
@@ -569,13 +490,19 @@ function lanzarExplosion() {
 
     /*
      * Limpieza.
+     *
+     * El humo puede durar hasta
+     * aproximadamente 2200 ms.
+     *
+     * Por eso no podemos eliminar
+     * el contenedor a los 1500 ms.
      */
 
     setTimeout(() => {
 
         explosionLayer.remove();
 
-    }, 1500);
+    }, 2400);
 
 }
 
@@ -809,10 +736,14 @@ function crearHumoExplosion(
             75;
 
 
+        /*
+         * Humo más lento.
+         */
+
         const duration =
-            900 +
+            1200 +
             Math.random() *
-            850;
+            1000;
 
 
         smoke.style.setProperty(
@@ -1018,8 +949,6 @@ function lanzarConfetiPotente() {
      * =================================================
      * SEGUNDA PEQUEÑA OLEADA
      * =================================================
-     *
-     * Mucho más pequeña que antes.
      */
 
     setTimeout(() => {
@@ -1065,11 +994,6 @@ function lanzarConfetiPotente() {
 
 
     function frame() {
-
-        /*
-         * Si terminó el período de lluvia,
-         * no generamos más partículas.
-         */
 
         if (
             Date.now() >=
@@ -2050,6 +1974,7 @@ document
                 event.preventDefault();
 
             }
+
         );
 
     });

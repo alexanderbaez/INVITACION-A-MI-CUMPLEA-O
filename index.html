@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -8,25 +9,33 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     >
 
-    <title>🎉 Invitación al cumpleaños de Maximo</title>
+    <title>🏁 Invitación al cumpleaños de Maximo</title>
+
+    <meta
+        name="description"
+        content="Estás invitado al cumpleaños de Maximo. ¡Vamos a festejar sus 5 añitos!"
+    >
 
     <!-- =====================================================
-         PREVISUALIZACIÓN AL COMPARTIR EL ENLACE
-         IMPORTANTE:
-         Cambiar TU-USUARIO y TU-REPOSITORIO por tu URL real
-         de GitHub Pages.
+         OPEN GRAPH
+         REEMPLAZÁ LA URL POR TU URL REAL DE GITHUB PAGES
     ====================================================== -->
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="🎉 ¡Estás invitado al cumpleaños de Maximo!">
+
+    <meta
+        property="og:title"
+        content="🏁 ¡Estás invitado al cumpleaños de Maximo!"
+    >
+
     <meta
         property="og:description"
-        content="Te esperamos para festejar juntos sus 5 añitos 🎂"
+        content="Maximo cumple 5 años y quiere festejarlo junto a vos 🎂🚙💨"
     >
 
     <meta
         property="og:image"
-        content="https://github.com/alexanderbaez/INVITACION-A-MI-CUMPLEA-O/blob/master/image/mamo.jpeg"
+        content="https://alexanderbaez.github.io/INVITACION-A-MI-CUMPLEA-O/image/mamo.jpeg"
     >
 
     <meta
@@ -36,712 +45,1038 @@
 
     <meta
         property="og:url"
-        content="https://github.com/alexanderbaez/INVITACION-A-MI-CUMPLEA-O"
+        content="https://alexanderbaez.github.io/INVITACION-A-MI-CUMPLEA-O/"
     >
 
     <meta name="twitter:card" content="summary_large_image">
+
     <meta
         name="twitter:title"
-        content="🎉 ¡Estás invitado al cumpleaños de Maximo!"
+        content="🏁 ¡Estás invitado al cumpleaños de Maximo!"
     >
+
     <meta
         name="twitter:description"
-        content="Te esperamos para festejar juntos sus 5 añitos 🎂"
+        content="Maximo cumple 5 años 🎂🚙💨"
     >
+
     <meta
         name="twitter:image"
-        content="https://TU-USUARIO.github.io/TU-REPOSITORIO/image/mamo.jpeg"
+        content="https://alexanderbaez.github.io/INVITACION-A-MI-CUMPLEA-O/image/mamo.jpeg"
     >
 
-    <!-- SEO básico -->
-    <meta
-        name="description"
-        content="Invitación al cumpleaños de Maximo. ¡Te esperamos para festejar sus 5 añitos!"
-    >
 
     <!-- CSS -->
+
     <link rel="stylesheet" href="style.css">
 
-    <!-- Swiper -->
+
+    <!-- SWIPER -->
+
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     >
 
-    <!-- Animate CSS -->
+
+    <!-- ANIMATE CSS -->
+
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     >
+
 </head>
+
 
 <body>
 
-    <!-- =====================================================
-         AUDIO
-    ====================================================== -->
 
-    <audio id="musicaCumple" loop preload="auto">
-        <source
-            src="./audio/happy-birthday-357371.mp3"
-            type="audio/mpeg"
-        >
-    </audio>
+<!-- =========================================================
+     AUDIO
+========================================================= -->
+
+<audio id="musicaCumple" loop preload="auto">
+
+    <source
+        src="./audio/happy-birthday-357371.mp3"
+        type="audio/mpeg"
+    >
+
+</audio>
 
 
-    <!-- =====================================================
-         PANTALLA DE APERTURA
-    ====================================================== -->
 
-    <div id="overlay">
+<!-- =========================================================
+     APERTURA
+========================================================= -->
 
-        <div class="opening-card">
+<div id="overlay">
 
-            <div class="opening-decoration opening-decoration-1">
-                ✨
-            </div>
+    <!-- Decoraciones -->
 
-            <div class="opening-decoration opening-decoration-2">
-                🎈
-            </div>
+    <div class="track-flag flag-left">
+        🏁
+    </div>
 
-            <div class="opening-photo-wrapper">
-                <div class="opening-photo-ring">
-                    <img
-                        src="./image/mamo.jpeg"
-                        alt="Maximo"
-                        class="opening-photo"
-                    >
-                </div>
-
-                <div class="opening-badge">
-                    5
-                </div>
-            </div>
-
-            <p class="opening-small-title">
-                UNA INVITACIÓN MUY ESPECIAL
-            </p>
-
-            <h2>
-                ¡Estás invitado!
-            </h2>
-
-            <p class="opening-description">
-                Maximo está por cumplir
-                <strong>5 añitos</strong>
-                y quiere festejarlo junto a vos.
-            </p>
-
-            <button
-                type="button"
-                onclick="iniciarInvitacion()"
-                class="btn-open"
-            >
-                <span>ABRIR INVITACIÓN</span>
-                <span class="btn-open-icon">🎉</span>
-            </button>
-
-            <p class="opening-hint">
-                Tocá para comenzar
-            </p>
-
-        </div>
-
+    <div class="track-flag flag-right">
+        🏁
     </div>
 
 
-    <!-- =====================================================
-         CONTENIDO PRINCIPAL
-    ====================================================== -->
+    <div class="opening-card">
 
-    <main class="main-card">
 
-        <!-- =================================================
-             HERO
-        ================================================== -->
+        <!-- PISTA DECORATIVA -->
 
-        <section class="hero-section">
+        <div class="opening-track">
 
-            <div class="hero-img-container">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
 
-                <div class="hero-overlay"></div>
+        </div>
 
-                <div class="hero-floating-balloon balloon-1">
-                    🎈
-                </div>
 
-                <div class="hero-floating-balloon balloon-2">
-                    🎈
-                </div>
+        <!-- MONSTER TRUCK -->
+
+        <div class="monster-stage">
+
+            <div class="monster-speed-line line-1"></div>
+            <div class="monster-speed-line line-2"></div>
+            <div class="monster-speed-line line-3"></div>
+
+            <img
+                src="./image/1291bfaba22eff2d601b72695593c40a7638f74ca38292cea3a4f479f1d3326b.avif"
+                alt="Monster Truck"
+                class="monster-truck"
+                id="openingTruck"
+            >
+
+            <div class="dust dust-1"></div>
+            <div class="dust dust-2"></div>
+            <div class="dust dust-3"></div>
+
+        </div>
+
+
+        <div class="opening-photo-wrapper">
+
+            <div class="opening-photo-ring">
 
                 <img
                     src="./image/mamo.jpeg"
                     alt="Maximo"
-                    class="hero-img"
+                    class="opening-photo"
                 >
 
             </div>
 
-            <div class="hero-text">
 
-                <p class="tagline">
-                    ¡HOLA, TE ESPERO!
-                </p>
+            <div class="opening-badge">
 
-                <p class="sub-h1">
-                    ¿Querés festejar conmigo?
-                </p>
-
-                <h1>
-                    Maximo
-                </h1>
-
-                <div class="age-badge">
-                    <span>🎂</span>
-                    5 AÑITOS
-                    <span>🎈</span>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             DETALLES DEL EVENTO
-        ================================================== -->
-
-        <section class="event-details">
-
-            <div class="section-title">
-                <span>📅</span>
-                <h2>
-                    Guardá la fecha
-                </h2>
-            </div>
-
-            <div class="detail-grid">
-
-                <div class="item">
-
-                    <div class="item-icon">
-                        📆
-                    </div>
-
-                    <strong>
-                        DÍA
-                    </strong>
-
-                    <p>
-                        25 de Agosto
-                    </p>
-
-                </div>
-
-
-                <!-- DESDE Y HASTA JUNTOS -->
-
-                <div class="time-row">
-
-                    <div class="item time-item">
-
-                        <div class="item-icon">
-                            🕡
-                        </div>
-
-                        <strong>
-                            DESDE
-                        </strong>
-
-                        <p>
-                            18:30 hs
-                        </p>
-
-                    </div>
-
-                    <div class="time-separator">
-                        →
-                    </div>
-
-                    <div class="item time-item">
-
-                        <div class="item-icon">
-                            🕥
-                        </div>
-
-                        <strong>
-                            HASTA
-                        </strong>
-
-                        <p>
-                            22:30 hs
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="item place-item">
-
-                    <div class="item-icon">
-                        📍
-                    </div>
-
-                    <strong>
-                        LUGAR
-                    </strong>
-
-                    <p>
-                        Salón Sueños y Fantasías
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             CONTADOR
-        ================================================== -->
-
-        <section class="interactive-hub">
-
-            <div class="hub-card countdown-card">
-
-                <div class="countdown-header">
-                    <span>🎉</span>
-
-                    <h3 id="countdown-title">
-                        Falta muy poquito
-                    </h3>
-
-                    <span>🎉</span>
-                </div>
-
-                <div id="countdown">
-
-                    <div class="time-unit">
-                        <span id="days">00</span>
-                        <small>DÍAS</small>
-                    </div>
-
-                    <div class="time-unit">
-                        <span id="hours">00</span>
-                        <small>HORAS</small>
-                    </div>
-
-                    <div class="time-unit">
-                        <span id="minutes">00</span>
-                        <small>MIN.</small>
-                    </div>
-
-                    <div class="time-unit">
-                        <span id="seconds">00</span>
-                        <small>SEG.</small>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 ACCIONES
-            ================================================== -->
-
-            <div class="hub-card action-card">
-
-                <button
-                    type="button"
-                    onclick="abrirModal()"
-                    class="btn-rsvp-trigger"
-                >
-                    <span class="icon">
-                        ✅
-                    </span>
-
-                    CONFIRMAR ASISTENCIA
-                </button>
-
-
-                <a
-                    href="https://maps.app.goo.gl/F1K8UpXR1Wy71nHs9?g_st=aw"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn-map"
-                >
-                    <span class="icon">
-                        📍
-                    </span>
-
-                    ¿CÓMO LLEGAR AL SALÓN?
-                </a>
-
-
-                <button
-                    type="button"
-                    onclick="compartirInvitacion()"
-                    class="btn-share"
-                >
-                    <span class="icon">
-                        📲
-                    </span>
-
-                    COMPARTIR INVITACIÓN
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             MOMENTOS DEL CUMPLEAÑERO
-        ================================================== -->
-
-        <section class="moments-section">
-
-            <div class="moments-header">
-
-                <span class="section-decoration">
-                    ✨
-                </span>
-
-                <p class="moments-kicker">
-                    UN POQUITO DE MÍ
-                </p>
-
-                <h2>
-                    Algunos de mis momentos 🎈
-                </h2>
-
-                <p class="moments-description">
-                    Quiero compartir con ustedes algunas fotos
-                    de momentos especiales.
-                </p>
-
-            </div>
-
-
-            <!-- SWIPER -->
-
-            <div class="swiper mySwiper">
-
-                <div class="swiper-wrapper">
-
-                    <div class="swiper-slide">
-
-                        <div class="photo-card">
-
-                            <img
-                                src="./image/WhatsApp Image 2026-08-16 at 15.26.12.jpeg"
-                                alt="Momento de Maximo"
-                                loading="lazy"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="swiper-slide">
-
-                        <div class="photo-card">
-
-                            <img
-                                src="./image/WhatsApp Image 2026-08-16 at 15.26.13.jpeg"
-                                alt="Momento de Maximo"
-                                loading="lazy"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="swiper-slide">
-
-                        <div class="photo-card">
-
-                            <img
-                                src="./image/WhatsApp Image 2026-08-16 at 15.26.14 (1).jpeg"
-                                alt="Momento de Maximo"
-                                loading="lazy"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="swiper-slide">
-
-                        <div class="photo-card">
-
-                            <img
-                                src="./image/WhatsApp Image 2026-08-16 at 15.26.14.jpeg"
-                                alt="Momento de Maximo"
-                                loading="lazy"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="swiper-slide">
-
-                        <div class="photo-card">
-
-                            <img
-                                src="./image/WhatsApp Image 2026-08-16 at 15.26.15 (1).jpeg"
-                                alt="Momento de Maximo"
-                                loading="lazy"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="swiper-slide">
-
-                        <div class="photo-card">
-
-                            <img
-                                src="./image/WhatsApp Image 2026-08-16 at 15.26.15 (2).jpeg"
-                                alt="Momento de Maximo"
-                                loading="lazy"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="swiper-slide">
-
-                        <div class="photo-card">
-
-                            <img
-                                src="./image/WhatsApp Image 2026-08-16 at 15.26.15.jpeg"
-                                alt="Momento de Maximo"
-                                loading="lazy"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="swiper-slide">
-
-                        <div class="photo-card">
-
-                            <img
-                                src="./image/WhatsApp Image 2026-08-16 at 15.26.16.jpeg"
-                                alt="Momento de Maximo"
-                                loading="lazy"
-                            >
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-
-                <div class="swiper-pagination"></div>
-
-            </div>
-
-            <p class="swipe-hint">
-                Deslizá para ver más fotos
-            </p>
-
-        </section>
-
-
-        <!-- =================================================
-             FOOTER
-        ================================================== -->
-
-        <footer class="footer">
-
-            <div class="footer-decoration">
-                🎈 ✨ 🎉
-            </div>
-
-            <div class="brand-section">
-
-                <p class="promo-text">
-                    ¿Querés una invitación como esta?
-                </p>
-
-                <a
-                    href="https://wa.me/5492645468570"
-                    class="brand-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <span class="developed-text">
-                        Desarrollado por
-                    </span>
-
-                    <span class="author-name">
-                        Alexander Baez
-                    </span>
-
-                </a>
-
-            </div>
-        </footer>
-
-    </main>
-
-
-    <!-- =====================================================
-         MODAL DE CONFIRMACIÓN
-    ====================================================== -->
-
-    <div
-        id="modalAsistencia"
-        class="modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modalTitle"
-    >
-
-        <div class="modal-content animate__animated animate__fadeInUp">
-
-            <button
-                type="button"
-                class="close-modal"
-                onclick="cerrarModal()"
-                aria-label="Cerrar"
-            >
-                ×
-            </button>
-
-            <div class="form-container">
-
-                <div class="modal-icon">
-                    🎉
-                </div>
-
-                <h2 id="modalTitle">
-                    Confirmar asistencia
-                </h2>
-
-                <p class="modal-subtitle">
-                    Nos encantaría contar con vos
-                    para festejar este día tan especial.
-                </p>
-
-
-                <label for="nombre">
-                    Nombre y Apellido
-                </label>
-
-                <input
-                    type="text"
-                    id="nombre"
-                    placeholder="Ej: Juan Pérez"
-                    autocomplete="name"
-                >
-
-
-                <label for="asistencia">
-                    ¿Vas a acompañarnos?
-                </label>
-
-                <select id="asistencia">
-                    <option value="">
-                        Seleccionar...
-                    </option>
-
-                    <option value="Sí">
-                        Sí, asistiré 🎉
-                    </option>
-
-                    <option value="No">
-                        No podré asistir 🙏
-                    </option>
-                </select>
-
-
-                <div id="seccion-personas">
-
-                    <label for="personas">
-                        ¿Cuántas personas asistirán?
-                    </label>
-
-                    <select id="personas">
-
-                        <option value="">
-                            Seleccionar...
-                        </option>
-
-                        <option value="Seré solo yo">
-                            1 persona
-                        </option>
-
-                        <option value="Seremos 2 personas">
-                            2 personas
-                        </option>
-
-                        <option value="Seremos 3 personas">
-                            3 personas
-                        </option>
-
-                        <option value="Seremos 4 personas">
-                            4 personas
-                        </option>
-
-                        <option value="Seremos 5 personas">
-                            5 personas
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    class="btn-enviar-wa"
-                    onclick="enviarAsistencia()"
-                >
-                    <span>
-                        💬
-                    </span>
-
-                    ENVIAR CONFIRMACIÓN
-                </button>
+                5
 
             </div>
 
         </div>
 
+
+        <p class="opening-kicker">
+
+            🏁 UNA INVITACIÓN MUY ESPECIAL
+
+        </p>
+
+
+        <h2>
+
+            ¡Estás invitado!
+
+        </h2>
+
+
+        <p class="opening-description">
+
+            Maximo está por cumplir
+
+            <strong>5 añitos</strong>
+
+            y quiere festejarlo junto a vos.
+
+        </p>
+
+
+        <div class="race-title">
+
+            <span>🏁</span>
+
+            <strong>
+                MAXIMO
+            </strong>
+
+            <span>🏁</span>
+
+        </div>
+
+
+        <button
+            type="button"
+            onclick="iniciarInvitacion()"
+            class="btn-open"
+        >
+
+            <span>
+
+                ¡ARRANCAMOS!
+
+            </span>
+
+            <span class="btn-open-icon">
+
+                🚙💨
+
+            </span>
+
+        </button>
+
+
+        <p class="opening-hint">
+
+            Tocá para comenzar la aventura 🎉
+
+        </p>
+
     </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main-card">
 
 
     <!-- =====================================================
-         LIBRERÍAS
+         HERO
     ====================================================== -->
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <section class="hero-section">
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <script src="script.js"></script>
+        <div class="hero-img-container">
+
+            <div class="hero-overlay"></div>
+
+
+            <div class="hero-racing-top">
+
+                <span>🏁</span>
+
+                <span>
+                    BIRTHDAY RACE
+                </span>
+
+                <span>🏁</span>
+
+            </div>
+
+
+            <img
+                src="./image/mamo.jpeg"
+                alt="Maximo"
+                class="hero-img"
+            >
+
+
+            <img
+                src="./image/monster-truck.png"
+                alt=""
+                class="hero-truck"
+                aria-hidden="true"
+            >
+
+
+            <div class="hero-dust"></div>
+
+
+        </div>
+
+
+        <div class="hero-text">
+
+
+            <p class="tagline">
+
+                🏁 ¡HOLA, TE ESPERO!
+
+            </p>
+
+
+            <p class="sub-h1">
+
+                ¿Querés festejar conmigo?
+
+            </p>
+
+
+            <h1>
+
+                Maximo
+
+            </h1>
+
+
+            <div class="age-badge">
+
+                <span>🎂</span>
+
+                5 AÑITOS
+
+                <span>🏁</span>
+
+            </div>
+
+
+            <div class="hero-mini-message">
+
+                <span>🚙</span>
+
+                ¡PREPARATE PARA LA FIESTA!
+
+                <span>💨</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DETALLES
+    ====================================================== -->
+
+    <section class="event-details">
+
+
+        <div class="section-title">
+
+            <span>🏁</span>
+
+            <h2>
+                Guardá la fecha
+            </h2>
+
+            <span>🏁</span>
+
+        </div>
+
+
+        <div class="detail-grid">
+
+
+            <div class="item">
+
+                <div class="item-icon">
+                    📆
+                </div>
+
+                <strong>
+                    DÍA
+                </strong>
+
+                <p>
+                    25 de Agosto
+                </p>
+
+            </div>
+
+
+            <!-- DESDE / HASTA -->
+
+            <div class="time-row">
+
+
+                <div class="item time-item">
+
+                    <div class="item-icon">
+                        🕡
+                    </div>
+
+                    <strong>
+                        DESDE
+                    </strong>
+
+                    <p>
+                        18:30 hs
+                    </p>
+
+                </div>
+
+
+                <div class="time-separator">
+
+                    <span>🏁</span>
+
+                </div>
+
+
+                <div class="item time-item">
+
+                    <div class="item-icon">
+                        🕥
+                    </div>
+
+                    <strong>
+                        HASTA
+                    </strong>
+
+                    <p>
+                        22:30 hs
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="item place-item">
+
+                <div class="item-icon">
+                    📍
+                </div>
+
+                <strong>
+                    LUGAR
+                </strong>
+
+                <p>
+                    Salón Sueños y Fantasías
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CONTADOR
+    ====================================================== -->
+
+    <section class="interactive-hub">
+
+
+        <div class="hub-card countdown-card">
+
+
+            <div class="countdown-racing">
+
+                <span>🏁</span>
+
+                <h3 id="countdown-title">
+                    Falta muy poquito
+                </h3>
+
+                <span>🏁</span>
+
+            </div>
+
+
+            <div id="countdown">
+
+
+                <div class="time-unit">
+
+                    <span id="days">
+                        00
+                    </span>
+
+                    <small>
+                        DÍAS
+                    </small>
+
+                </div>
+
+
+                <div class="time-unit">
+
+                    <span id="hours">
+                        00
+                    </span>
+
+                    <small>
+                        HORAS
+                    </small>
+
+                </div>
+
+
+                <div class="time-unit">
+
+                    <span id="minutes">
+                        00
+                    </span>
+
+                    <small>
+                        MIN.
+                    </small>
+
+                </div>
+
+
+                <div class="time-unit">
+
+                    <span id="seconds">
+                        00
+                    </span>
+
+                    <small>
+                        SEG.
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="countdown-bottom">
+
+                🚙💨
+
+                ¡LA CARRERA ESTÁ POR COMENZAR!
+
+                🏁
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ACCIONES -->
+
+        <div class="hub-card action-card">
+
+
+            <button
+                type="button"
+                onclick="abrirModal()"
+                class="btn-rsvp-trigger"
+            >
+
+                <span class="icon">
+                    ✅
+                </span>
+
+                CONFIRMAR ASISTENCIA
+
+            </button>
+
+
+            <a
+                href="https://maps.app.goo.gl/F1K8UpXR1Wy71nHs9?g_st=aw"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-map"
+            >
+
+                <span class="icon">
+                    📍
+                </span>
+
+                ¿CÓMO LLEGAR AL SALÓN?
+
+            </a>
+
+
+            <button
+                type="button"
+                onclick="compartirInvitacion()"
+                class="btn-share"
+            >
+
+                <span class="icon">
+                    📲
+                </span>
+
+                COMPARTIR INVITACIÓN
+
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         MOMENTOS
+    ====================================================== -->
+
+    <section class="moments-section">
+
+
+        <div class="racing-divider">
+
+            <span></span>
+            <b>🏁</b>
+            <span></span>
+
+        </div>
+
+
+        <div class="moments-header">
+
+
+            <p class="moments-kicker">
+
+                🚙💨 UN POQUITO DE MÍ
+
+            </p>
+
+
+            <h2>
+
+                Algunos de mis momentos
+
+            </h2>
+
+
+            <p class="moments-description">
+
+                Quiero compartir con ustedes algunas fotos
+                de momentos especiales que fui viviendo.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CARRUSEL
+        ================================================== -->
+
+        <div class="swiper mySwiper">
+
+
+            <div class="swiper-wrapper">
+
+
+                <div class="swiper-slide">
+
+                    <div class="photo-card">
+
+                        <img
+                            src="./image/WhatsApp Image 2026-08-16 at 15.26.12.jpeg"
+                            alt="Momento de Maximo"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="swiper-slide">
+
+                    <div class="photo-card">
+
+                        <img
+                            src="./image/WhatsApp Image 2026-08-16 at 15.26.13.jpeg"
+                            alt="Momento de Maximo"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="swiper-slide">
+
+                    <div class="photo-card">
+
+                        <img
+                            src="./image/WhatsApp Image 2026-08-16 at 15.26.14 (1).jpeg"
+                            alt="Momento de Maximo"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="swiper-slide">
+
+                    <div class="photo-card">
+
+                        <img
+                            src="./image/WhatsApp Image 2026-08-16 at 15.26.14.jpeg"
+                            alt="Momento de Maximo"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="swiper-slide">
+
+                    <div class="photo-card">
+
+                        <img
+                            src="./image/WhatsApp Image 2026-08-16 at 15.26.15 (1).jpeg"
+                            alt="Momento de Maximo"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="swiper-slide">
+
+                    <div class="photo-card">
+
+                        <img
+                            src="./image/WhatsApp Image 2026-08-16 at 15.26.15 (2).jpeg"
+                            alt="Momento de Maximo"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="swiper-slide">
+
+                    <div class="photo-card">
+
+                        <img
+                            src="./image/WhatsApp Image 2026-08-16 at 15.26.15.jpeg"
+                            alt="Momento de Maximo"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="swiper-slide">
+
+                    <div class="photo-card">
+
+                        <img
+                            src="./image/WhatsApp Image 2026-08-16 at 15.26.16.jpeg"
+                            alt="Momento de Maximo"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="swiper-button-prev"></div>
+
+            <div class="swiper-button-next"></div>
+
+            <div class="swiper-pagination"></div>
+
+
+        </div>
+
+
+        <p class="swipe-hint">
+
+            Deslizá para ver más momentos 🚙💨
+
+        </p>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+
+        <div class="footer-racing">
+
+            🏁 🚙💨 🏁
+
+        </div>
+
+
+        <div class="brand-section">
+
+
+            <p class="promo-text">
+
+                ¿Querés una invitación como esta?
+
+            </p>
+
+
+            <a
+                href="https://wa.me/5492644629511"
+                class="brand-link"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                <span class="developed-text">
+                    Desarrollado por
+                </span>
+
+                <span class="author-name">
+                    Alexander Baez
+                </span>
+
+            </a>
+
+
+        </div>
+
+
+        <img
+            src="logo-chuculinos.png"
+            alt="Logo"
+            class="mini-logo"
+        >
+
+
+    </footer>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     MODAL
+========================================================= -->
+
+<div
+    id="modalAsistencia"
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+>
+
+
+    <div class="modal-content animate__animated animate__fadeInUp">
+
+
+        <button
+            type="button"
+            class="close-modal"
+            onclick="cerrarModal()"
+            aria-label="Cerrar"
+        >
+
+            ×
+
+        </button>
+
+
+        <div class="form-container">
+
+
+            <div class="modal-icon">
+
+                🏁
+
+            </div>
+
+
+            <h2 id="modalTitle">
+
+                Confirmar asistencia
+
+            </h2>
+
+
+            <p class="modal-subtitle">
+
+                Nos encantaría contar con vos
+                para festejar los 5 añitos de Maximo.
+
+            </p>
+
+
+            <label for="nombre">
+
+                Nombre y Apellido
+
+            </label>
+
+
+            <input
+                type="text"
+                id="nombre"
+                placeholder="Ej: Juan Pérez"
+                autocomplete="name"
+            >
+
+
+            <label for="asistencia">
+
+                ¿Vas a acompañarnos?
+
+            </label>
+
+
+            <select id="asistencia">
+
+
+                <option value="">
+
+                    Seleccionar...
+
+                </option>
+
+
+                <option value="Sí">
+
+                    Sí, asistiré 🎉
+
+                </option>
+
+
+                <option value="No">
+
+                    No podré asistir 🙏
+
+                </option>
+
+
+            </select>
+
+
+            <div id="seccion-personas">
+
+
+                <label for="personas">
+
+                    ¿Cuántas personas asistirán?
+
+                </label>
+
+
+                <select id="personas">
+
+
+                    <option value="">
+
+                        Seleccionar...
+
+                    </option>
+
+
+                    <option value="Seré solo yo">
+
+                        1 persona
+
+                    </option>
+
+
+                    <option value="Seremos 2 personas">
+
+                        2 personas
+
+                    </option>
+
+
+                    <option value="Seremos 3 personas">
+
+                        3 personas
+
+                    </option>
+
+
+                    <option value="Seremos 4 personas">
+
+                        4 personas
+
+                    </option>
+
+
+                    <option value="Seremos 5 personas">
+
+                        5 personas
+
+                    </option>
+
+
+                </select>
+
+
+            </div>
+
+
+            <button
+                type="button"
+                class="btn-enviar-wa"
+                onclick="enviarAsistencia()"
+            >
+
+                <span>
+                    💬
+                </span>
+
+                ENVIAR CONFIRMACIÓN
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     LIBRERÍAS
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script src="script.js"></script>
+
 
 </body>
 </html>

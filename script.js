@@ -2,59 +2,86 @@
 // CONFIGURACIÓN
 // =========================================================
 
-const FECHA_EVENTO = "Aug 25, 2026 18:30:00";
+const FECHA_EVENTO =
+    "Aug 25, 2026 18:30:00";
 
-const NUMERO_WHATSAPP = "5492644629511";
 
-const NOMBRE_CUMPLEANERO = "Maximo";
+const NUMERO_WHATSAPP =
+    "5492644629511";
 
-const EDAD = "5";
+
+const NOMBRE_CUMPLEANERO =
+    "Maximo";
+
+
+const EDAD =
+    "5";
 
 
 // =========================================================
 // AUDIO
 // =========================================================
 
-const audio = document.getElementById("musicaCumple");
+const audio =
+    document.getElementById(
+        "musicaCumple"
+    );
 
 
 // =========================================================
-// SWIPER - CARRUSEL PROFESIONAL
+// SWIPER
 // =========================================================
 
-const swiper = new Swiper(".mySwiper", {
+const swiper =
+    new Swiper(
+        ".mySwiper",
+        {
 
-    loop: true,
+            loop: true,
 
-    speed: 650,
+            speed: 650,
 
-    grabCursor: true,
+            grabCursor: true,
 
-    centeredSlides: true,
+            centeredSlides: true,
 
-    slidesPerView: 1,
+            slidesPerView: 1,
 
-    spaceBetween: 18,
+            spaceBetween: 18,
 
-    autoHeight: true,
+            autoHeight: true,
 
-    autoplay: {
-        delay: 4200,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true
-    },
+            autoplay: {
 
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-    },
+                delay: 4200,
 
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev"
-    }
+                disableOnInteraction: false,
 
-});
+                pauseOnMouseEnter: true
+
+            },
+
+            pagination: {
+
+                el:
+                    ".swiper-pagination",
+
+                clickable: true
+
+            },
+
+            navigation: {
+
+                nextEl:
+                    ".swiper-button-next",
+
+                prevEl:
+                    ".swiper-button-prev"
+
+            }
+
+        }
+    );
 
 
 // =========================================================
@@ -63,69 +90,143 @@ const swiper = new Swiper(".mySwiper", {
 
 function iniciarInvitacion() {
 
+
     if (audio) {
 
         audio.volume = 0.45;
 
         audio.play().catch(() => {
-            console.log("El navegador bloqueó la reproducción automática.");
+
+            console.log(
+                "El navegador bloqueó el audio."
+            );
+
         });
 
     }
 
-    const overlay = document.getElementById("overlay");
 
-    overlay.style.transform = "translateY(-100%)";
+    const overlay =
+        document.getElementById(
+            "overlay"
+        );
+
+
+    const truck =
+        document.getElementById(
+            "openingTruck"
+        );
+
+
+    /*
+       Animación especial del Monster Truck.
+
+       Primero aceleramos.
+       Después hacemos un pequeño salto.
+    */
+
+    if (truck) {
+
+        truck.style.animation =
+            "none";
+
+        truck.offsetHeight;
+
+        truck.style.transition =
+            "transform .75s cubic-bezier(.2,.8,.2,1)";
+
+        truck.style.transform =
+            "translateX(-50%) translateX(120px) translateY(-20px) rotate(8deg)";
+
+    }
+
 
     lanzarConfetiOriginal();
 
+
     setTimeout(() => {
 
-        overlay.style.display = "none";
+        overlay.style.transform =
+            "translateY(-100%)";
 
-    }, 950);
+
+    }, 650);
+
+
+    setTimeout(() => {
+
+        overlay.style.display =
+            "none";
+
+
+    }, 1500);
+
 }
 
 
 // =========================================================
-// CONFETI INICIAL
+// CONFETI
 // =========================================================
 
 function lanzarConfetiOriginal() {
 
-    const duration = 3500;
 
-    const end = Date.now() + duration;
+    const duration =
+        3500;
+
+
+    const end =
+        Date.now() + duration;
+
 
     function frame() {
 
+
         confetti({
+
             particleCount: 4,
+
             angle: 60,
+
             spread: 60,
+
             origin: {
                 x: 0
             }
+
         });
 
+
         confetti({
+
             particleCount: 4,
+
             angle: 120,
+
             spread: 60,
+
             origin: {
                 x: 1
             }
+
         });
 
-        if (Date.now() < end) {
 
-            requestAnimationFrame(frame);
+        if (
+            Date.now() < end
+        ) {
+
+            requestAnimationFrame(
+                frame
+            );
 
         }
 
     }
 
+
     frame();
+
 }
 
 
@@ -133,83 +234,155 @@ function lanzarConfetiOriginal() {
 // FUEGOS ARTIFICIALES
 // =========================================================
 
-let fuegosLanzados = false;
+let fuegosLanzados =
+    false;
+
 
 function lanzarFuegosArtificiales() {
 
+
     if (fuegosLanzados) {
+
         return;
+
     }
 
-    fuegosLanzados = true;
 
-    const duration = 15000;
+    fuegosLanzados =
+        true;
 
-    const animationEnd = Date.now() + duration;
+
+    const duration =
+        15000;
+
+
+    const animationEnd =
+        Date.now() + duration;
+
 
     const defaults = {
+
         startVelocity: 30,
+
         spread: 360,
+
         ticks: 60,
+
         zIndex: 0
+
     };
 
 
-    function randomInRange(min, max) {
+    function randomInRange(
+        min,
+        max
+    ) {
 
-        return Math.random() * (max - min) + min;
+        return (
+            Math.random()
+            *
+            (max - min)
+            +
+            min
+        );
 
     }
 
 
-    const interval = setInterval(() => {
-
-        const timeLeft = animationEnd - Date.now();
-
-        if (timeLeft <= 0) {
-
-            clearInterval(interval);
-
-            return;
-        }
+    const interval =
+        setInterval(
+            () => {
 
 
-        const particleCount =
-            50 * (timeLeft / duration);
+                const timeLeft =
+                    animationEnd
+                    -
+                    Date.now();
 
 
-        confetti(
-            Object.assign(
-                {},
-                defaults,
-                {
-                    particleCount,
+                if (
+                    timeLeft <= 0
+                ) {
 
-                    origin: {
-                        x: randomInRange(0.1, 0.3),
-                        y: Math.random() - 0.2
-                    }
+                    clearInterval(
+                        interval
+                    );
+
+                    return;
+
                 }
-            )
+
+
+                const particleCount =
+                    50
+                    *
+                    (timeLeft / duration);
+
+
+                confetti(
+
+                    Object.assign(
+                        {},
+                        defaults,
+                        {
+
+                            particleCount,
+
+                            origin: {
+
+                                x:
+                                    randomInRange(
+                                        .1,
+                                        .3
+                                    ),
+
+                                y:
+                                    Math.random()
+                                    -
+                                    .2
+
+                            }
+
+                        }
+                    )
+
+                );
+
+
+                confetti(
+
+                    Object.assign(
+                        {},
+                        defaults,
+                        {
+
+                            particleCount,
+
+                            origin: {
+
+                                x:
+                                    randomInRange(
+                                        .7,
+                                        .9
+                                    ),
+
+                                y:
+                                    Math.random()
+                                    -
+                                    .2
+
+                            }
+
+                        }
+                    )
+
+                );
+
+
+            },
+            250
         );
 
-
-        confetti(
-            Object.assign(
-                {},
-                defaults,
-                {
-                    particleCount,
-
-                    origin: {
-                        x: randomInRange(0.7, 0.9),
-                        y: Math.random() - 0.2
-                    }
-                }
-            )
-        );
-
-    }, 250);
 }
 
 
@@ -217,50 +390,92 @@ function lanzarFuegosArtificiales() {
 // CUENTA REGRESIVA
 // =========================================================
 
-const targetDate = new Date(FECHA_EVENTO).getTime();
+const targetDate =
+    new Date(
+        FECHA_EVENTO
+    ).getTime();
+
 
 let timerInterval;
 
 
 function actualizarContador() {
 
-    const now = Date.now();
 
-    const diff = targetDate - now;
-
-
-    const dEl = document.getElementById("days");
-    const hEl = document.getElementById("hours");
-    const mEl = document.getElementById("minutes");
-    const sEl = document.getElementById("seconds");
+    const now =
+        Date.now();
 
 
-    if (diff <= 0) {
+    const diff =
+        targetDate - now;
+
+
+    const dEl =
+        document.getElementById(
+            "days"
+        );
+
+
+    const hEl =
+        document.getElementById(
+            "hours"
+        );
+
+
+    const mEl =
+        document.getElementById(
+            "minutes"
+        );
+
+
+    const sEl =
+        document.getElementById(
+            "seconds"
+        );
+
+
+    if (
+        diff <= 0
+    ) {
+
 
         if (timerInterval) {
-            clearInterval(timerInterval);
+
+            clearInterval(
+                timerInterval
+            );
+
         }
 
 
         const countdown =
-            document.getElementById("countdown");
+            document.getElementById(
+                "countdown"
+            );
+
 
         const title =
-            document.getElementById("countdown-title");
+            document.getElementById(
+                "countdown-title"
+            );
 
 
         if (countdown) {
 
             countdown.innerHTML = `
+
                 <div style="
-                    grid-column: 1 / -1;
-                    padding: 10px 0;
-                    font-size: 1.15rem;
-                    font-weight: 900;
-                    color: #2ed573;
+                    grid-column:1/-1;
+                    padding:10px 0;
+                    font-size:1.15rem;
+                    font-weight:900;
+                    color:#2ed573;
                 ">
+
                     ¡LLEGÓ EL GRAN DÍA! 🎂
+
                 </div>
+
             `;
 
         }
@@ -277,50 +492,116 @@ function actualizarContador() {
         lanzarFuegosArtificiales();
 
         return;
+
     }
 
 
     const d =
         Math.floor(
-            diff / (1000 * 60 * 60 * 24)
+            diff /
+            (
+                1000 *
+                60 *
+                60 *
+                24
+            )
         );
 
 
     const h =
         Math.floor(
-            (diff % (1000 * 60 * 60 * 24))
-            / (1000 * 60 * 60)
+
+            (
+                diff %
+                (
+                    1000 *
+                    60 *
+                    60 *
+                    24
+                )
+
+            )
+            /
+            (
+                1000 *
+                60 *
+                60
+            )
+
         );
 
 
     const m =
         Math.floor(
-            (diff % (1000 * 60 * 60))
-            / (1000 * 60)
+
+            (
+                diff %
+                (
+                    1000 *
+                    60 *
+                    60
+                )
+
+            )
+            /
+            (
+                1000 *
+                60
+            )
+
         );
 
 
     const s =
         Math.floor(
-            (diff % (1000 * 60))
-            / 1000
+
+            (
+                diff %
+                (
+                    1000 *
+                    60
+                )
+
+            )
+            /
+            1000
+
         );
 
 
     if (dEl) {
-        dEl.innerText = String(d).padStart(2, "0");
+
+        dEl.innerText =
+            String(d)
+            .padStart(2, "0");
+
     }
+
 
     if (hEl) {
-        hEl.innerText = String(h).padStart(2, "0");
+
+        hEl.innerText =
+            String(h)
+            .padStart(2, "0");
+
     }
+
 
     if (mEl) {
-        mEl.innerText = String(m).padStart(2, "0");
+
+        mEl.innerText =
+            String(m)
+            .padStart(2, "0");
+
     }
 
+
     if (sEl) {
-        sEl.innerText = String(s).padStart(2, "0");
+
+        sEl.innerText =
+            String(s)
+            .padStart(2, "0");
+
     }
 
 }
@@ -328,10 +609,12 @@ function actualizarContador() {
 
 actualizarContador();
 
-timerInterval = setInterval(
-    actualizarContador,
-    1000
-);
+
+timerInterval =
+    setInterval(
+        actualizarContador,
+        1000
+    );
 
 
 // =========================================================
@@ -339,88 +622,140 @@ timerInterval = setInterval(
 // =========================================================
 
 const modal =
-    document.getElementById("modalAsistencia");
+    document.getElementById(
+        "modalAsistencia"
+    );
+
 
 const asistencia =
-    document.getElementById("asistencia");
+    document.getElementById(
+        "asistencia"
+    );
+
 
 const seccionPersonas =
-    document.getElementById("seccion-personas");
+    document.getElementById(
+        "seccion-personas"
+    );
 
 
 function abrirModal() {
 
+
     if (!modal) {
+
         return;
+
     }
 
-    modal.style.display = "block";
 
-    document.body.style.overflow = "hidden";
+    modal.style.display =
+        "block";
 
 
-    setTimeout(() => {
+    document.body.style.overflow =
+        "hidden";
 
-        const nombre =
-            document.getElementById("nombre");
 
-        if (nombre) {
-            nombre.focus();
-        }
+    setTimeout(
+        () => {
 
-    }, 150);
+
+            const nombre =
+                document.getElementById(
+                    "nombre"
+                );
+
+
+            if (nombre) {
+
+                nombre.focus();
+
+            }
+
+
+        },
+        150
+    );
+
 }
 
 
 function cerrarModal() {
 
+
     if (!modal) {
+
         return;
+
     }
 
-    modal.style.display = "none";
 
-    document.body.style.overflow = "";
+    modal.style.display =
+        "none";
+
+
+    document.body.style.overflow =
+        "";
 
 }
 
 
 // =========================================================
-// CERRAR MODAL AL TOCAR AFUERA
+// CLICK AFUERA
 // =========================================================
 
-window.addEventListener("click", (event) => {
+window.addEventListener(
+    "click",
+    (event) => {
 
-    if (event.target === modal) {
 
-        cerrarModal();
+        if (
+            event.target === modal
+        ) {
+
+            cerrarModal();
+
+        }
 
     }
-
-});
+);
 
 
 // =========================================================
-// ESC PARA CERRAR
+// ESC
 // =========================================================
 
-document.addEventListener("keydown", (event) => {
+document.addEventListener(
+    "keydown",
+    (event) => {
 
-    if (
-        event.key === "Escape" &&
-        modal &&
-        modal.style.display === "block"
-    ) {
 
-        cerrarModal();
+        if (
+
+            event.key === "Escape"
+
+            &&
+
+            modal
+
+            &&
+
+            modal.style.display ===
+                "block"
+
+        ) {
+
+            cerrarModal();
+
+        }
 
     }
-
-});
+);
 
 
 // =========================================================
-// MOSTRAR / OCULTAR CANTIDAD DE PERSONAS
+// ASISTENCIA
 // =========================================================
 
 if (asistencia) {
@@ -435,17 +770,25 @@ if (asistencia) {
 
 function actualizarSeccionPersonas() {
 
+
     if (!seccionPersonas) {
+
         return;
+
     }
 
-    if (asistencia.value === "No") {
 
-        seccionPersonas.style.display = "none";
+    if (
+        asistencia.value === "No"
+    ) {
+
+        seccionPersonas.style.display =
+            "none";
 
     } else {
 
-        seccionPersonas.style.display = "block";
+        seccionPersonas.style.display =
+            "block";
 
     }
 
@@ -453,25 +796,32 @@ function actualizarSeccionPersonas() {
 
 
 // =========================================================
-// CONFIRMAR ASISTENCIA
+// WHATSAPP - CONFIRMACIÓN
 // =========================================================
 
 function enviarAsistencia() {
 
+
     const nombre =
-        document.getElementById("nombre")
-            .value
-            .trim();
+        document.getElementById(
+            "nombre"
+        )
+        .value
+        .trim();
 
 
     const respuesta =
-        document.getElementById("asistencia")
-            .value;
+        document.getElementById(
+            "asistencia"
+        )
+        .value;
 
 
     const personas =
-        document.getElementById("personas")
-            .value;
+        document.getElementById(
+            "personas"
+        )
+        .value;
 
 
     if (!nombre) {
@@ -480,9 +830,8 @@ function enviarAsistencia() {
             "Por favor, ingresá tu nombre y apellido."
         );
 
-        document.getElementById("nombre").focus();
-
         return;
+
     }
 
 
@@ -493,11 +842,13 @@ function enviarAsistencia() {
         );
 
         return;
+
     }
 
 
     if (
-        respuesta === "Sí" &&
+        respuesta === "Sí"
+        &&
         !personas
     ) {
 
@@ -506,20 +857,25 @@ function enviarAsistencia() {
         );
 
         return;
+
     }
 
 
-    let mensaje = "";
+    let mensaje;
 
 
-    if (respuesta === "Sí") {
+    if (
+        respuesta === "Sí"
+    ) {
+
 
         mensaje =
-`🎉 *CONFIRMACIÓN DE ASISTENCIA* 🎉
+
+`🏁 *CONFIRMACIÓN DE ASISTENCIA* 🎉
 
 Hola, soy *${nombre}*.
 
-Quiero confirmar que voy a acompañar a *${NOMBRE_CUMPLEANERO}* en su cumpleaños de *${EDAD} añitos* 🎂
+Quiero confirmar mi asistencia al cumpleaños de *${NOMBRE_CUMPLEANERO}*, que festeja sus *${EDAD} añitos*. 🎂🚙💨
 
 👥 *Cantidad de personas:* ${personas}
 
@@ -528,27 +884,36 @@ Quiero confirmar que voy a acompañar a *${NOMBRE_CUMPLEANERO}* en su cumpleaño
 📍 *Lugar:* Salón Sueños y Fantasías
 
 ¡Muchas gracias por la invitación! ❤️
-¡Nos vemos para festejar! 🎈🎉`;
+
+¡Nos vemos para festejar juntos! 🎉🏁`;
+
 
     } else {
 
+
         mensaje =
+
 `👋 *RESPUESTA A LA INVITACIÓN*
 
 Hola, soy *${nombre}*.
 
 Lamentablemente no voy a poder acompañar a *${NOMBRE_CUMPLEANERO}* en su cumpleaños de *${EDAD} añitos*. 🎂
 
-Les deseo que pasen un hermoso día y que disfruten muchísimo del festejo. ❤️🎉
+Les deseo que pasen un hermoso día y disfruten muchísimo del festejo. ❤️🎉
 
 ¡Muchas gracias por la invitación!`;
+
+
     }
 
 
     const url =
-        `https://wa.me/${NUMERO_WHATSAPP}?text=${
-            encodeURIComponent(mensaje)
-        }`;
+
+        `https://wa.me/${NUMERO_WHATSAPP}?text=` +
+
+        encodeURIComponent(
+            mensaje
+        );
 
 
     window.open(
@@ -569,34 +934,48 @@ Les deseo que pasen un hermoso día y que disfruten muchísimo del festejo. ❤�
 
 async function compartirInvitacion() {
 
+
     const url =
         window.location.href;
 
 
     const texto =
-`🎉 ¡Estás invitado al cumpleaños de ${NOMBRE_CUMPLEANERO}! 🎂
 
-Te esperamos para festejar sus ${EDAD} añitos juntos.
+`🏁🎉 *¡ESTÁS INVITADO!* 🎉🏁
 
-📅 25 de Agosto
-🕡 18:30 a 22:30 hs
-📍 Salón Sueños y Fantasías
+Maximo cumple *5 añitos* 🎂🚙💨
+
+Te esperamos para compartir juntos una tarde llena de diversión, juegos y mucha alegría.
+
+📅 *25 de Agosto*
+🕡 *18:30 a 22:30 hs*
+📍 *Salón Sueños y Fantasías*
 
 💌 Abrí la invitación para conocer todos los detalles:
 
 ${url}`;
 
 
-    // =====================================================
-    // INTENTAR COMPARTIR FOTO + TEXTO + ENLACE
-    // En celulares modernos puede aparecer WhatsApp
-    // directamente entre las aplicaciones disponibles.
-    // =====================================================
+    /*
+       Intentamos compartir:
+
+       - Foto de Maximo
+       - Texto
+       - URL
+
+       Los navegadores compatibles
+       mostrarán el menú nativo
+       de compartir.
+    */
 
     try {
 
+
         const response =
-            await fetch("./image/mamo.jpeg");
+            await fetch(
+                "./image/mamo.jpeg"
+            );
+
 
         const blob =
             await response.blob();
@@ -604,60 +983,86 @@ ${url}`;
 
         const file =
             new File(
+
                 [blob],
+
                 "maximo-cumpleanos.jpg",
+
                 {
                     type:
-                        blob.type || "image/jpeg"
+                        blob.type
+                        ||
+                        "image/jpeg"
                 }
+
             );
 
 
         if (
-            navigator.share &&
-            navigator.canShare &&
+
+            navigator.share
+
+            &&
+
+            navigator.canShare
+
+            &&
+
             navigator.canShare({
                 files: [file]
             })
+
         ) {
+
 
             await navigator.share({
 
                 title:
                     `🎉 Cumpleaños de ${NOMBRE_CUMPLEANERO}`,
 
-                text: texto,
+                text:
+                    texto,
 
-                url: url,
+                url:
+                    url,
 
-                files: [file]
+                files:
+                    [file]
 
             });
 
 
             return;
+
         }
+
 
     } catch (error) {
 
+
         console.log(
-            "No se pudo compartir la imagen:",
+            "Compartir imagen no disponible:",
             error
         );
 
     }
 
 
-    // =====================================================
-    // FALLBACK
-    // Si el dispositivo no permite compartir archivos,
-    // abrimos WhatsApp con el mensaje y el enlace.
-    // =====================================================
+    /*
+       FALLBACK
+
+       Si el navegador no permite
+       compartir archivos, usamos
+       WhatsApp.
+    */
 
     const whatsappUrl =
-        `https://wa.me/?text=${
-            encodeURIComponent(texto)
-        }`;
+
+        `https://wa.me/?text=` +
+
+        encodeURIComponent(
+            texto
+        );
 
 
     window.open(
@@ -670,14 +1075,17 @@ ${url}`;
 
 
 // =========================================================
-// PAUSAR SWIPER CUANDO SE CAMBIA DE PESTAÑA
+// VISIBILITY
 // =========================================================
 
 document.addEventListener(
     "visibilitychange",
     () => {
 
-        if (document.hidden) {
+
+        if (
+            document.hidden
+        ) {
 
             swiper.autoplay.stop();
 
